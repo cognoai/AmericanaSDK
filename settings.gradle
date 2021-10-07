@@ -1,0 +1,4 @@
+rootProject.name = "EasyChatWebView"
+include ':app'
+include ':easychatwebviewsdk'
+include ':easychatwebviewsdkmodule'

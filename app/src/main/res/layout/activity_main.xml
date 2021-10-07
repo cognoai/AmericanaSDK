@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:gravity="center"
+    android:orientation="vertical"
+    tools:context=".MainActivity">
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:text="https://easychat-dev.allincall.in"
+        android:gravity="center"
+        android:hint="Domain Name"
+        android:id="@+id/domain_et"
+        />
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:hint="Bot Id"
+        android:inputType="number"
+        android:gravity="center"
+        android:id="@+id/bot_id_et"
+        />
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Open Bot"
+        android:id="@+id/open_bot_btn"
+       />
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Open Bot"
+        android:id="@+id/open_test_activity"
+        />
+
+
+</LinearLayout>
