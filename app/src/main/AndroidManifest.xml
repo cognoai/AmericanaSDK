@@ -10,7 +10,8 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.EasyChatWebView"
-        android:usesCleartextTraffic="true">
+        android:usesCleartextTraffic="true"
+        android:name=".BaseApplication">
         <activity android:name=".TestActivity"></activity>
         <activity android:name=".MainActivity">
             <intent-filter>

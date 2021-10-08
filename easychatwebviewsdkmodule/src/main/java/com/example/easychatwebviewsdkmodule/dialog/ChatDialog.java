@@ -318,7 +318,7 @@ public class ChatDialog extends DialogFragment {
 //                '&selected_language=' + selected_language + '&is_initial_trigger_intent=' + is_initial_trigger_intent +
 //                '&web_page_source=' + web_page_source;
 //        String finalUrl = GlobalParams.domain_name+"/chat/bot/?id="+GlobalParams.bot_id+"&name=uat";
-        String finalUrl = GlobalParams.domain_name+"/chat/index/?id="+GlobalParams.bot_id+"&channel=Android";
+        String finalUrl = GlobalParams.getBase_url()+"/chat/index/?id="+GlobalParams.bot_id+"&channel=Android";
 //        webView.loadUrl("https://easychat-dev.allincall.in/chat/bot/?id=216");
         webView.loadUrl(finalUrl);
 

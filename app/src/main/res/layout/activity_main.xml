@@ -7,6 +7,10 @@
     android:gravity="center"
     android:orientation="vertical"
     tools:context=".MainActivity">
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Please Verify token first and then open bot."/>
     <EditText
         android:layout_width="match_parent"
         android:layout_height="60dp"
@@ -23,6 +27,22 @@
         android:gravity="center"
         android:id="@+id/bot_id_et"
         />
+
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:hint="Access Token"
+        android:gravity="center"
+        android:id="@+id/access_token_et"
+        />
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Verify Access Token"
+        android:id="@+id/verify_access_token"
+        />
+
     <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -34,8 +54,10 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Open Bot"
+        android:visibility="gone"
         android:id="@+id/open_test_activity"
         />
+
 
 
 </LinearLayout>

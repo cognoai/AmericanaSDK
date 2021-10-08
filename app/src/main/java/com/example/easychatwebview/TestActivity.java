@@ -19,12 +19,11 @@ public class TestActivity extends AppCompatActivity {
 
         openWebView = findViewById(R.id.open_web_view);
 
-        easyChat = new EasyChat(this);
 
         openWebView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                easyChat.showBot("318","https://easychat-dev.allincall.in");
+                EasyChat.showBot(TestActivity.this);
             }
         });
     }

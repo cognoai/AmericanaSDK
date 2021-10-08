@@ -7,6 +7,25 @@ public class GlobalParams {
     public static String domain_name;
     public static boolean bot_minimized = false;
     public static ChatDialog chatDialog;
+    public static String base_url;
+    public static String access_token = "";
+    public static boolean access_token_verified = false;
+
+    public static String getAccess_token() {
+        return access_token;
+    }
+
+    public static void setAccess_token(String access_token) {
+        GlobalParams.access_token = access_token;
+    }
+
+    public static String getBase_url() {
+        return base_url;
+    }
+
+    public static void setBase_url(String base_url) {
+        GlobalParams.base_url = base_url;
+    }
 
     public static boolean isBot_minimized() {
         return bot_minimized;

@@ -1,6 +1,6 @@
 # compiler: R8
 # compiler_version: 2.2.40
-# pg_map_id: e53bc9e
+# pg_map_id: 6a5bbcf
 # common_typos_disable
 com.example.easychatwebviewsdkmodule.BuildConfig -> a.a.a.a:
     boolean DEBUG -> a
@@ -10,24 +10,37 @@ com.example.easychatwebviewsdkmodule.BuildConfig -> a.a.a.a:
 com.example.easychatwebviewsdkmodule.ChatDialog -> a.a.a.b:
     1:1:void <init>():3:3 -> <init>
 com.example.easychatwebviewsdkmodule.Params.GlobalParams -> a.a.a.c.a:
+    java.lang.String access_token -> f
     com.example.easychatwebviewsdkmodule.dialog.ChatDialog chatDialog -> d
     java.lang.String bot_id -> a
+    boolean access_token_verified -> g
     java.lang.String domain_name -> b
     boolean bot_minimized -> c
+    java.lang.String base_url -> e
     1:1:void <init>():5:5 -> <init>
-    1:1:void setBot_minimized(boolean):16:16 -> a
-    2:2:java.lang.String getBot_id():20:20 -> a
-    3:3:void setBot_id(java.lang.String):24:24 -> a
-    4:4:void setChatDialog(com.example.easychatwebviewsdkmodule.dialog.ChatDialog):40:40 -> a
-    1:1:void setDomain_name(java.lang.String):32:32 -> b
-    2:2:com.example.easychatwebviewsdkmodule.dialog.ChatDialog getChatDialog():36:36 -> b
-    1:1:java.lang.String getDomain_name():28:28 -> c
-    1:1:boolean isBot_minimized():12:12 -> d
-com.example.easychatwebviewsdkmodule.WebViewClient.MyWebViewClient -> a.a.a.d.a:
+    1:1:java.lang.String getAccess_token():15:15 -> a
+    2:2:void setAccess_token(java.lang.String):19:19 -> a
+    3:3:void setBot_minimized(boolean):35:35 -> a
+    4:4:void setChatDialog(com.example.easychatwebviewsdkmodule.dialog.ChatDialog):59:59 -> a
+    1:1:java.lang.String getBase_url():23:23 -> b
+    2:2:void setBase_url(java.lang.String):27:27 -> b
+    1:1:java.lang.String getBot_id():39:39 -> c
+    2:2:void setBot_id(java.lang.String):43:43 -> c
+    1:1:void setDomain_name(java.lang.String):51:51 -> d
+    2:2:com.example.easychatwebviewsdkmodule.dialog.ChatDialog getChatDialog():55:55 -> d
+    1:1:java.lang.String getDomain_name():47:47 -> e
+    1:1:boolean isBot_minimized():31:31 -> f
+com.example.easychatwebviewsdkmodule.ViewModal.AuthenticationViewModal -> a.a.a.d.a:
+    com.example.easychatwebviewsdkmodule.rest.MainRepository mainRepository -> a
+    1:1:void <init>():10:10 -> <init>
+    1:2:void init():15:16 -> a
+    3:3:androidx.lifecycle.LiveData verifyAccessToken(com.example.easychatwebviewsdkmodule.modal.Request.AccessTokenRequestPacket):20:20 -> a
+    1:1:void resetAccessTokenResponseMutableLiveData():24:24 -> b
+com.example.easychatwebviewsdkmodule.WebViewClient.MyWebViewClient -> a.a.a.e.a:
     1:1:void <init>():6:6 -> <init>
     1:1:void onPageFinished(android.webkit.WebView,java.lang.String):16:16 -> onPageFinished
     1:1:boolean shouldOverrideUrlLoading(android.webkit.WebView,java.lang.String):9:9 -> shouldOverrideUrlLoading
-com.example.easychatwebviewsdkmodule.dialog.ChatDialog -> a.a.a.e.a:
+com.example.easychatwebviewsdkmodule.dialog.ChatDialog -> a.a.a.f.a:
     java.lang.Integer StorageRequestCode -> c
     com.example.easychatwebviewsdkmodule.utils.SpeechToText speechToText -> g
     boolean is_text_to_speech_initialized -> i
@@ -65,43 +78,95 @@ com.example.easychatwebviewsdkmodule.dialog.ChatDialog -> a.a.a.e.a:
     1:26:void onRequestPermissionsResult(int,java.lang.String[],int[]):374:399 -> onRequestPermissionsResult
     1:6:void onStart():117:122 -> onStart
     1:194:void onViewCreated(android.view.View,android.os.Bundle):137:330 -> onViewCreated
-com.example.easychatwebviewsdkmodule.dialog.ChatDialog$1 -> a.a.a.e.a$a:
+com.example.easychatwebviewsdkmodule.dialog.ChatDialog$1 -> a.a.a.f.a$a:
     com.example.easychatwebviewsdkmodule.dialog.ChatDialog this$0 -> a
     1:1:void <init>(com.example.easychatwebviewsdkmodule.dialog.ChatDialog):163:163 -> <init>
     1:2:void close():178:179 -> close
     1:3:void minimize():168:170 -> minimize
     1:21:void start_recording():187:207 -> start_recording
-com.example.easychatwebviewsdkmodule.dialog.ChatDialog$1$1 -> a.a.a.e.a$a$a:
+com.example.easychatwebviewsdkmodule.dialog.ChatDialog$1$1 -> a.a.a.f.a$a$a:
 # {"id":"sourceFile","fileName":"ChatDialog.java"}
     com.example.easychatwebviewsdkmodule.dialog.ChatDialog$1 this$1 -> a
     1:1:void <init>(com.example.easychatwebviewsdkmodule.dialog.ChatDialog$1):187:187 -> <init>
     1:10:void run():190:199 -> run
-com.example.easychatwebviewsdkmodule.dialog.ChatDialog$2 -> a.a.a.e.a$b:
+com.example.easychatwebviewsdkmodule.dialog.ChatDialog$2 -> a.a.a.f.a$b:
     com.example.easychatwebviewsdkmodule.dialog.ChatDialog this$0 -> a
     1:1:void <init>(com.example.easychatwebviewsdkmodule.dialog.ChatDialog):217:217 -> <init>
     1:1:void onPageStarted(android.webkit.WebView,java.lang.String,android.graphics.Bitmap):240:240 -> onPageStarted
     1:1:void onReceivedError(android.webkit.WebView,int,java.lang.String,java.lang.String):235:235 -> onReceivedError
     1:6:boolean shouldOverrideUrlLoading(android.webkit.WebView,java.lang.String):219:224 -> shouldOverrideUrlLoading
     7:7:boolean shouldOverrideUrlLoading(android.webkit.WebView,java.lang.String):223:223 -> shouldOverrideUrlLoading
-com.example.easychatwebviewsdkmodule.dialog.ChatDialog$3 -> a.a.a.e.a$c:
+com.example.easychatwebviewsdkmodule.dialog.ChatDialog$3 -> a.a.a.f.a$c:
     com.example.easychatwebviewsdkmodule.dialog.ChatDialog this$0 -> a
     1:1:void <init>(com.example.easychatwebviewsdkmodule.dialog.ChatDialog):249:249 -> <init>
     1:2:boolean onConsoleMessage(android.webkit.ConsoleMessage):262:263 -> onConsoleMessage
     1:1:boolean onJsAlert(android.webkit.WebView,java.lang.String,java.lang.String,android.webkit.JsResult):257:257 -> onJsAlert
     1:1:void onPermissionRequest(android.webkit.PermissionRequest):268:268 -> onPermissionRequest
     1:33:boolean onShowFileChooser(android.webkit.WebView,android.webkit.ValueCallback,android.webkit.WebChromeClient$FileChooserParams):275:307 -> onShowFileChooser
-com.example.easychatwebviewsdkmodule.dialog.ChatDialog$4 -> a.a.a.e.a$d:
+com.example.easychatwebviewsdkmodule.dialog.ChatDialog$4 -> a.a.a.f.a$d:
     com.example.easychatwebviewsdkmodule.dialog.ChatDialog this$0 -> a
     1:1:void <init>(com.example.easychatwebviewsdkmodule.dialog.ChatDialog):424:424 -> <init>
     1:3:void onClick(android.content.DialogInterface,int):427:427 -> onClick
+com.example.easychatwebviewsdkmodule.modal.Request.AccessTokenRequestPacket -> a.a.a.g.a.a:
+    java.lang.String access_token -> a
+    java.lang.String bot_id -> b
+    1:3:void <init>(java.lang.String,java.lang.String):15:17 -> <init>
+    4:4:void <init>():20:20 -> <init>
+    1:1:java.lang.String getAccess_token():24:24 -> a
+    2:2:void setAccess_token(java.lang.String):28:28 -> a
+    1:1:java.lang.String getBot_id():32:32 -> b
+    2:2:void setBot_id(java.lang.String):36:36 -> b
+    1:1:java.lang.String toString():41:41 -> toString
+com.example.easychatwebviewsdkmodule.modal.Response.AccessTokenResponse -> a.a.a.g.b.a:
+    int status -> a
+    1:1:void <init>():21:21 -> <init>
+    2:3:void <init>(int):24:25 -> <init>
+    1:1:int getStatus():29:29 -> a
+    2:2:void setStatus(int):33:33 -> a
+    1:1:java.lang.String toString():38:38 -> toString
+com.example.easychatwebviewsdkmodule.rest.EasyChatApi -> a.a.a.h.a:
+    java.lang.String BASE_URL -> a
+    1:1:void <clinit>():13:13 -> <clinit>
+    retrofit2.Call verifyAccessToken(java.lang.String,com.example.easychatwebviewsdkmodule.modal.Request.AccessTokenRequestPacket) -> a
+com.example.easychatwebviewsdkmodule.rest.MainRepository -> a.a.a.h.b:
+    com.google.gson.Gson gson -> d
+    io.reactivex.disposables.CompositeDisposable disposables -> f
+    java.lang.String TAG -> a
+    com.example.easychatwebviewsdkmodule.rest.MainRepository instance -> b
+    com.example.easychatwebviewsdkmodule.rest.EasyChatApi easyChatApi -> c
+    androidx.lifecycle.MutableLiveData accessTokenMutableLiveData -> e
+    1:1:void <init>():42:42 -> <init>
+    2:7:void <init>():38:43 -> <init>
+    1:25:androidx.lifecycle.MutableLiveData verifyAccessToken(com.example.easychatwebviewsdkmodule.modal.Request.AccessTokenRequestPacket):64:88 -> a
+    26:26:androidx.lifecycle.MutableLiveData getAcessTokenMutableLiveData():93:93 -> a
+    1:4:com.example.easychatwebviewsdkmodule.rest.MainRepository getInstance():57:60 -> b
+    1:7:void setEasyChatApi():47:53 -> c
+com.example.easychatwebviewsdkmodule.rest.MainRepository$1 -> a.a.a.h.b$a:
+    com.example.easychatwebviewsdkmodule.rest.MainRepository this$0 -> a
+    1:1:void <init>(com.example.easychatwebviewsdkmodule.rest.MainRepository):66:66 -> <init>
+    1:1:void onFailure(retrofit2.Call,java.lang.Throwable):83:83 -> onFailure
+    1:9:void onResponse(retrofit2.Call,retrofit2.Response):69:77 -> onResponse
+com.example.easychatwebviewsdkmodule.rest.RetrofitService -> a.a.a.h.c:
+    1:1:void <init>():9:9 -> <init>
+    1:12:java.lang.Object createService(java.lang.Class,java.lang.String):13:24 -> a
 com.example.easychatwebviewsdkmodule.sdkclasses.EasyChat -> com.example.easychatwebviewsdkmodule.sdkclasses.EasyChat:
     com.example.easychatwebviewsdkmodule.dialog.ChatDialog cd -> b
+    com.example.easychatwebviewsdkmodule.ViewModal.AuthenticationViewModal authenticationViewModal -> c
     android.app.Activity activity -> a
-    1:2:void <init>(android.app.Activity):20:21 -> <init>
-    1:8:void showDialog(androidx.fragment.app.DialogFragment,java.lang.String):69:76 -> a
-    1:1:androidx.fragment.app.DialogFragment get_chat_dialog():64:64 -> get_chat_dialog
-    1:34:void showBot(java.lang.String,java.lang.String):24:57 -> showBot
-com.example.easychatwebviewsdkmodule.utils.CryptoUtils -> a.a.a.f.a:
+    1:2:void <init>(android.app.Activity):31:32 -> <init>
+    1:8:void showDialog(androidx.fragment.app.DialogFragment,java.lang.String):78:85 -> a
+    1:1:androidx.fragment.app.DialogFragment get_chat_dialog():73:73 -> get_chat_dialog
+    1:1:void setAccess_token(java.lang.String):109:109 -> setAccess_token
+    1:1:void setBase_url(java.lang.String):113:113 -> setBase_url
+    1:1:void setBot_id(java.lang.String):117:117 -> setBot_id
+    1:32:void showBot(android.app.Activity):36:67 -> showBot
+    1:5:void verifyAccessToken():89:93 -> verifyAccessToken
+com.example.easychatwebviewsdkmodule.sdkclasses.EasyChat$1 -> com.example.easychatwebviewsdkmodule.sdkclasses.EasyChat$1:
+    com.example.easychatwebviewsdkmodule.sdkclasses.EasyChat this$0 -> a
+    1:1:void <init>(com.example.easychatwebviewsdkmodule.sdkclasses.EasyChat):93:93 -> <init>
+    1:1:void onChanged(java.lang.Object):93:93 -> onChanged
+    2:6:void onChanged(com.example.easychatwebviewsdkmodule.modal.Response.AccessTokenResponse):97:101 -> onChanged
+com.example.easychatwebviewsdkmodule.utils.CryptoUtils -> a.a.a.i.a:
     java.lang.String TAG -> a
     1:1:void <init>():21:21 -> <init>
     1:5:byte[] encrypt(byte[],java.lang.String,byte[]):81:85 -> a
@@ -117,7 +182,7 @@ com.example.easychatwebviewsdkmodule.utils.CryptoUtils -> a.a.a.f.a:
     1:10:java.lang.String getDecryptedResponse(java.lang.String):62:71 -> c
     11:17:java.lang.String getDecryptedResponse(java.lang.String):68:74 -> c
     1:8:java.lang.String getEncryptedRequest(java.lang.String):29:36 -> d
-com.example.easychatwebviewsdkmodule.utils.SpeechToText -> a.a.a.f.b:
+com.example.easychatwebviewsdkmodule.utils.SpeechToText -> a.a.a.i.b:
     android.speech.SpeechRecognizer speechRecognizer -> c
     android.content.Context context -> b
     android.content.Intent speechRecognizerIntent -> d
@@ -132,19 +197,19 @@ com.example.easychatwebviewsdkmodule.utils.SpeechToText -> a.a.a.f.b:
     1:1:android.content.Intent getSpeechRecognizerIntent():110:110 -> b
     1:5:void initializeSpeechRecognizer():31:35 -> c
     1:1:void setSpeechRecognizerListener():39:39 -> d
-com.example.easychatwebviewsdkmodule.utils.SpeechToText$1 -> a.a.a.f.b$a:
+com.example.easychatwebviewsdkmodule.utils.SpeechToText$1 -> a.a.a.i.b$a:
     com.example.easychatwebviewsdkmodule.utils.SpeechToText this$0 -> a
     1:1:void <init>(com.example.easychatwebviewsdkmodule.utils.SpeechToText):39:39 -> <init>
     1:1:void onBeginningOfSpeech():48:48 -> onBeginningOfSpeech
     1:3:void onError(int):68:70 -> onError
     1:5:void onResults(android.os.Bundle):75:79 -> onResults
-com.example.easychatwebviewsdkmodule.utils.SpeechToText$1$1 -> a.a.a.f.b$a$a:
+com.example.easychatwebviewsdkmodule.utils.SpeechToText$1$1 -> a.a.a.i.b$a$a:
 # {"id":"sourceFile","fileName":"SpeechToText.java"}
     com.example.easychatwebviewsdkmodule.utils.SpeechToText$1 this$1 -> b
     java.lang.String val$value -> a
     1:1:void <init>(com.example.easychatwebviewsdkmodule.utils.SpeechToText$1,java.lang.String):79:79 -> <init>
     1:1:void run():82:82 -> run
-com.example.easychatwebviewsdkmodule.utils.ViewStyleUtils -> a.a.a.f.c:
+com.example.easychatwebviewsdkmodule.utils.ViewStyleUtils -> a.a.a.i.c:
     1:1:void <init>():7:7 -> <init>
     1:6:void setBackgroundColorDraw(android.view.View,float,int,java.lang.String):10:15 -> a
     7:15:void setBackgroundColor(android.view.View,float,int,java.lang.String,java.lang.String,boolean):19:27 -> a

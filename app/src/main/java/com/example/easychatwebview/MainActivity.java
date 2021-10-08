@@ -12,9 +12,9 @@ import com.example.easychatwebviewsdkmodule.sdkclasses.EasyChat;
 
 public class MainActivity extends AppCompatActivity {
 Button btn;
-EditText domain, bot_id;
+EditText domain, bot_id, token_et;
     EasyChat easyChat;
-    Button openTestAct;
+    Button openTestAct, verify_access_token;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -24,12 +24,15 @@ EditText domain, bot_id;
         domain = findViewById(R.id.domain_et);
         bot_id = findViewById(R.id.bot_id_et);
         openTestAct = findViewById(R.id.open_test_activity);
+        token_et = findViewById(R.id.access_token_et);
+        verify_access_token = findViewById(R.id.verify_access_token);
+        easyChat = new EasyChat(MainActivity.this);
+
+
         btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
-                easyChat = new EasyChat(MainActivity.this);
-                easyChat.showBot(bot_id.getText().toString(), domain.getText().toString());
+                EasyChat.showBot(MainActivity.this);
             }
         });
 
@@ -37,6 +40,16 @@ EditText domain, bot_id;
             @Override
             public void onClick(View view) {
                 startActivity(new Intent(MainActivity.this, TestActivity.class));
+            }
+        });
+
+        verify_access_token.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                EasyChat.setBot_id(bot_id.getText().toString());
+                EasyChat.setBase_url(domain.getText().toString());
+                EasyChat.setAccess_token(token_et.getText().toString());
+                easyChat.verifyAccessToken();
             }
         });
 
