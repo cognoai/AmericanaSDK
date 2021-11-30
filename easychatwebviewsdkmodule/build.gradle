@@ -64,8 +64,8 @@ dependencies {
 }
 
 def libraryGroupId = 'com.allincall'
-def libraryArtifactId = 'easychatsdkwebview'
-def libraryVersion = '1.8'
+def libraryArtifactId = 'easychatsdkwebviewflutter'
+def libraryVersion = '1.9'
 
 publishing {
     publications {
