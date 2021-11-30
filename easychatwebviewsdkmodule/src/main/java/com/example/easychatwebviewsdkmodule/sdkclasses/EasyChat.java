@@ -11,6 +11,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.DialogFragment;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentActivity;
+import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 import androidx.lifecycle.LifecycleOwner;
 import androidx.lifecycle.Observer;
@@ -24,16 +25,10 @@ import com.example.easychatwebviewsdkmodule.modal.Response.AccessTokenResponse;
 
 public class EasyChat {
 
-    static Activity activity;
     private ChatDialog cd;
-    private AuthenticationViewModal authenticationViewModal;
+    private static AuthenticationViewModal authenticationViewModal;
 
-    public EasyChat(Activity activity){
-        this.activity=activity;
-    }
-
-    public static void showBot(Activity activity) {
-        EasyChat.activity = activity;
+    public static void showBot(FragmentManager fragmentManager, FragmentActivity fragmentActivity) {
         if( GlobalParams.access_token_verified) {
             Log.i("TAG", "showBot: " + GlobalParams.isBot_minimized());
             if (GlobalParams.isBot_minimized()) {
@@ -45,14 +40,16 @@ public class EasyChat {
                         ChatDialog cd = (ChatDialog) ChatDialog.newInstance("ChatDialog");
                         GlobalParams.setChatDialog(cd);
                         GlobalParams.setBot_minimized(false);
-                        showDialog(cd, "chats");
+//                        showDialog(cd, "chats");
+                        cd.show(fragmentManager, "chats");
                     }
                 } else {
 
                     ChatDialog cd = (ChatDialog) ChatDialog.newInstance("ChatDialog");
                     GlobalParams.setChatDialog(cd);
                     GlobalParams.setBot_minimized(false);
-                    showDialog(cd, "chats");
+//                    showDialog(cd, "chats");
+                    cd.show(fragmentManager, "chats");
                 }
 
             } else {
@@ -60,11 +57,12 @@ public class EasyChat {
                 ChatDialog cd = (ChatDialog) ChatDialog.newInstance("ChatDialog");
                 GlobalParams.setChatDialog(cd);
                 GlobalParams.setBot_minimized(false);
-                showDialog(cd, "chats");
+//                showDialog(cd, "chats");
 
+                cd.show(fragmentManager, "chats");
             }
         } else {
-            Toast.makeText(activity, "Something went wrong", Toast.LENGTH_SHORT).show();
+            Toast.makeText(fragmentActivity, "Something went wrong", Toast.LENGTH_SHORT).show();
         }
     }
 
@@ -73,24 +71,12 @@ public class EasyChat {
         return cd;
     }
 
-    private static void showDialog(DialogFragment dialogFragment, String tag) {
-
-        FragmentTransaction ft = ((FragmentActivity) activity).getSupportFragmentManager().beginTransaction();
-        Fragment prev = ((FragmentActivity) activity).getSupportFragmentManager().findFragmentByTag(tag);
-        if (prev != null && !tag.equals("endSession")) {
-            ft.remove(prev);
-        }
-        ft.addToBackStack(null);
-
-        dialogFragment.show(((AppCompatActivity) activity).getSupportFragmentManager(), tag);
-    }
-
-    public void verifyAccessToken() {
-            authenticationViewModal = ViewModelProviders.of((FragmentActivity) activity).get(AuthenticationViewModal.class);
+    public static void verifyAccessToken(FragmentActivity fragmentActivity) {
+            authenticationViewModal = ViewModelProviders.of(fragmentActivity).get(AuthenticationViewModal.class);
             authenticationViewModal.init();
             AccessTokenRequestPacket accessTokenRequestPacket = new AccessTokenRequestPacket(GlobalParams.getAccess_token().toString(), GlobalParams.getBot_id().toString());
 
-            authenticationViewModal.verifyAccessToken(accessTokenRequestPacket).observe((LifecycleOwner) activity, new Observer<AccessTokenResponse>() {
+            authenticationViewModal.verifyAccessToken(accessTokenRequestPacket).observe((LifecycleOwner) fragmentActivity, new Observer<AccessTokenResponse>() {
                 @Override
                 public void onChanged(AccessTokenResponse accessTokenResponse) {
                     if (accessTokenResponse != null) {

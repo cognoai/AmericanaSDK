@@ -1,6 +1,7 @@
 package com.example.easychatwebview;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.FragmentActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -13,7 +14,6 @@ import com.example.easychatwebviewsdkmodule.sdkclasses.EasyChat;
 public class MainActivity extends AppCompatActivity {
 Button btn;
 EditText domain, bot_id, token_et;
-    EasyChat easyChat;
     Button openTestAct, verify_access_token;
 
     @Override
@@ -26,13 +26,11 @@ EditText domain, bot_id, token_et;
         openTestAct = findViewById(R.id.open_test_activity);
         token_et = findViewById(R.id.access_token_et);
         verify_access_token = findViewById(R.id.verify_access_token);
-        easyChat = new EasyChat(MainActivity.this);
-
 
         btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                EasyChat.showBot(MainActivity.this);
+                EasyChat.showBot(getSupportFragmentManager(), (FragmentActivity) MainActivity.this);
             }
         });
 
@@ -49,7 +47,7 @@ EditText domain, bot_id, token_et;
                 EasyChat.setBot_id(bot_id.getText().toString());
                 EasyChat.setBase_url(domain.getText().toString());
                 EasyChat.setAccess_token(token_et.getText().toString());
-                easyChat.verifyAccessToken();
+                EasyChat.verifyAccessToken((FragmentActivity) MainActivity.this);
             }
         });
 

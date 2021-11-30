@@ -66,8 +66,13 @@ public class SpeechToText {
             @Override
             public void onError(int i) {
                 Log.d(TAG, "onError() called with: i = [" + i + "]");
-
-                showToastMessage("Some error occurred. Please try again");
+                webView.post(new Runnable() {
+                    @Override
+                    public void run() {
+                        webView.loadUrl("javascript:deactivate_mic_android();");
+                    }
+                });
+                showToastMessage("Please speak clearly.");
             }
 
             @Override

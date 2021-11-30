@@ -14,7 +14,7 @@
     <EditText
         android:layout_width="match_parent"
         android:layout_height="60dp"
-        android:text="https://easychat-dev.allincall.in"
+        android:text="https://app.getcogno.ai"
         android:gravity="center"
         android:hint="Domain Name"
         android:id="@+id/domain_et"

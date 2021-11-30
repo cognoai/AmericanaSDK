@@ -1,6 +1,7 @@
 package com.example.easychatwebview;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.FragmentActivity;
 
 import android.os.Bundle;
 import android.view.View;
@@ -23,7 +24,7 @@ public class TestActivity extends AppCompatActivity {
         openWebView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                EasyChat.showBot(TestActivity.this);
+                EasyChat.showBot(getSupportFragmentManager(), (FragmentActivity) TestActivity.this);
             }
         });
     }

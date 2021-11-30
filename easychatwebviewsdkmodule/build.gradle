@@ -65,7 +65,7 @@ dependencies {
 
 def libraryGroupId = 'com.allincall'
 def libraryArtifactId = 'easychatsdkwebview'
-def libraryVersion = '1.7'
+def libraryVersion = '1.8'
 
 publishing {
     publications {
