@@ -225,6 +225,10 @@ public class ChatDialog extends DialogFragment {
                         return true;
                     }
 
+                }else if (url != null && url.contains("mailto:")) {
+                    view.getContext().startActivity(
+                            new Intent(Intent.ACTION_VIEW, Uri.parse(url)));
+                    return true;
                 } else {
                     return false;
                 }

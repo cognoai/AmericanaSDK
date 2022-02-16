@@ -3,6 +3,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     package="com.example.easychatwebview">
 
+    <uses-permission android:name="android.permission.INTERNET"/>
+
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
@@ -12,7 +14,7 @@
         android:theme="@style/Theme.EasyChatWebView"
         android:usesCleartextTraffic="true"
         android:name=".BaseApplication">
-        <activity android:name=".TestActivity"></activity>
+        <activity android:name=".TestActivity"/>
         <activity android:name=".MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
