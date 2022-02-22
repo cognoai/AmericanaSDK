@@ -165,9 +165,9 @@ public class ChatDialog extends DialogFragment {
             public void minimize()
             {
                 Log.i("TAG", "minimize: clicked");
-                GlobalParams.setBot_minimized(true);
-                if(GlobalParams.getChatDialog().getDialog().isShowing())
-                GlobalParams.getChatDialog().getDialog().hide();
+//                GlobalParams.setBot_minimized(true);
+//                if(GlobalParams.getChatDialog().getDialog().isShowing())
+//                GlobalParams.getChatDialog().getDialog().hide();
 
             }
 
@@ -457,5 +457,16 @@ public class ChatDialog extends DialogFragment {
 //            Toast.makeText(mContext,"Permissions already granted",Toast.LENGTH_SHORT).show();
         }
     }
+
+//    @NonNull
+//    @Override
+//    public Dialog onCreateDialog(Bundle savedInstanceState) {
+//        return new Dialog(getActivity(), getTheme()){
+//            @Override
+//            public void onBackPressed() {
+//                webView.evaluateJavascript("document.body.style.backgroundColor=\"black\";document.body.style.color=\"white\";", null);
+//            }
+//        };
+//    }
 
 }

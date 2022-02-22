@@ -14,7 +14,7 @@
     <EditText
         android:layout_width="match_parent"
         android:layout_height="60dp"
-        android:text="https://app.getcogno.ai"
+        android:text="https://sbisecurities-uat.allincall.in/chat/index/?id=1&amp;channel=Android"
         android:gravity="center"
         android:hint="Domain Name"
         android:id="@+id/domain_et"
@@ -31,7 +31,7 @@
     <EditText
         android:layout_width="match_parent"
         android:layout_height="60dp"
-        android:hint="Access Token"
+        android:text="fd1bbc84-1397-423b-8230-f5de9934d5fe"
         android:gravity="center"
         android:id="@+id/access_token_et"
         />
