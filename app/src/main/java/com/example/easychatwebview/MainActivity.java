@@ -9,6 +9,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 
+import com.example.easychatwebviewsdkmodule.Params.GlobalParams;
 import com.example.easychatwebviewsdkmodule.sdkclasses.EasyChat;
 
 public class MainActivity extends AppCompatActivity {
@@ -26,6 +27,8 @@ EditText domain, bot_id, token_et;
         openTestAct = findViewById(R.id.open_test_activity);
         token_et = findViewById(R.id.access_token_et);
         verify_access_token = findViewById(R.id.verify_access_token);
+
+        EasyChat.setDarkTheme(true);
 
         btn.setOnClickListener(new View.OnClickListener() {
             @Override

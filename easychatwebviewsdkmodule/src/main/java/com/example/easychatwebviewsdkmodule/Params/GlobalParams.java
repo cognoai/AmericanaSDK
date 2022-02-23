@@ -10,6 +10,15 @@ public class GlobalParams {
     public static String base_url;
     public static String access_token = "";
     public static boolean access_token_verified = false;
+    private static boolean darkTheme = false;
+
+    public static boolean isDarkTheme() {
+        return darkTheme;
+    }
+
+    public static void setDarkTheme(boolean darkTheme) {
+        GlobalParams.darkTheme = darkTheme;
+    }
 
     public static String getAccess_token() {
         return access_token;

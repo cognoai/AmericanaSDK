@@ -7,6 +7,7 @@ import android.app.Dialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.content.res.Configuration;
 import android.graphics.Bitmap;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
@@ -36,6 +37,8 @@ import androidx.appcompat.app.AlertDialog;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 import androidx.fragment.app.DialogFragment;
+import androidx.webkit.WebSettingsCompat;
+import androidx.webkit.WebViewFeature;
 
 import com.example.easychatwebviewsdkmodule.Params.GlobalParams;
 import com.example.easychatwebviewsdkmodule.R;
@@ -138,6 +141,15 @@ public class ChatDialog extends DialogFragment {
 
         webView = (WebView) view.findViewById(R.id.webview);
 
+        if(GlobalParams.isDarkTheme()){
+            if(WebViewFeature.isFeatureSupported(WebViewFeature.FORCE_DARK)){
+                WebSettingsCompat.setForceDark(webView.getSettings(), WebSettingsCompat.FORCE_DARK_ON);
+            }
+        }else {
+            if(WebViewFeature.isFeatureSupported(WebViewFeature.FORCE_DARK)){
+                WebSettingsCompat.setForceDark(webView.getSettings(), WebSettingsCompat.FORCE_DARK_OFF);
+            }
+        }
         webView.setScrollbarFadingEnabled(true);
         webView.setVerticalScrollBarEnabled(false);
         webView.setHorizontalScrollBarEnabled(false);
@@ -458,15 +470,20 @@ public class ChatDialog extends DialogFragment {
         }
     }
 
-//    @NonNull
-//    @Override
-//    public Dialog onCreateDialog(Bundle savedInstanceState) {
-//        return new Dialog(getActivity(), getTheme()){
-//            @Override
-//            public void onBackPressed() {
-//                webView.evaluateJavascript("document.body.style.backgroundColor=\"black\";document.body.style.color=\"white\";", null);
-//            }
-//        };
-//    }
+    @NonNull
+    @Override
+    public Dialog onCreateDialog(Bundle savedInstanceState) {
+        return new Dialog(getActivity(), getTheme()){
+            @Override
+            public void onBackPressed() {
+                sendDataToWebView();
+            }
+        };
+    }
+
+    private void sendDataToWebView(){
+        webView.evaluateJavascript(
+                "javascript: " +"open_chat_termination_modal()",null);
+    }
 
 }

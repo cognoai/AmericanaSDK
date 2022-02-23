@@ -102,4 +102,8 @@ public class EasyChat {
     public static void setBot_id(String bot_id) {
         GlobalParams.bot_id = bot_id;
     }
+
+    public static void setDarkTheme(Boolean isDarkTheme){
+        GlobalParams.setDarkTheme(isDarkTheme);
+    }
 }
