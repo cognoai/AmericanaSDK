@@ -29,6 +29,8 @@ import android.webkit.ValueCallback;
 import android.webkit.WebChromeClient;
 import android.webkit.WebSettings;
 import android.webkit.WebView;
+import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -61,6 +63,7 @@ public class ChatDialog extends DialogFragment {
     private static final Integer StorageRequestCode = 3;
     private boolean isRecorderPermissionGranted = false;
     private boolean  is_text_to_speech_initialized = false;
+    private ImageButton backButton;
 
     private String mCM;
     private ValueCallback<Uri> mUM;
@@ -140,7 +143,14 @@ public class ChatDialog extends DialogFragment {
         super.onViewCreated(view, savedInstanceState);
 
         webView = (WebView) view.findViewById(R.id.webview);
+        backButton = (ImageButton) view.findViewById(R.id.back_button);
 
+        backButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                sendDataToWebView();
+            }
+        });
         if(GlobalParams.isDarkTheme()){
             if(WebViewFeature.isFeatureSupported(WebViewFeature.FORCE_DARK)){
                 WebSettingsCompat.setForceDark(webView.getSettings(), WebSettingsCompat.FORCE_DARK_ON);

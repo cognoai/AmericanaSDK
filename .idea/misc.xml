@@ -5,7 +5,8 @@
       <map>
         <entry key="app/src/main/res/layout/activity_main.xml" value="0.25" />
         <entry key="app/src/main/res/layout/activity_test.xml" value="0.1947463768115942" />
-        <entry key="easychatwebviewsdkmodule/src/main/res/layout/chat_dialog.xml" value="0.1947463768115942" />
+        <entry key="easychatwebviewsdkmodule/src/main/res/drawable/ic_back.xml" value="0.192" />
+        <entry key="easychatwebviewsdkmodule/src/main/res/layout/chat_dialog.xml" value="0.9" />
       </map>
     </option>
   </component>
