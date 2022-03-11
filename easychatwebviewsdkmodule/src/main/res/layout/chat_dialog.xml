@@ -8,7 +8,7 @@
         android:id="@+id/layout"
         android:layout_width="match_parent"
         android:layout_height="50dp"
-        android:background="#FAFAFA">
+        android:background="@color/light_white">
 
         <ImageButton
             android:id="@+id/back_button"

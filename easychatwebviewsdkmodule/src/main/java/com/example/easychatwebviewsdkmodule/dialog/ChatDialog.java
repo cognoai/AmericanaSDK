@@ -31,6 +31,8 @@ import android.webkit.WebSettings;
 import android.webkit.WebView;
 import android.widget.Button;
 import android.widget.ImageButton;
+import android.widget.RelativeLayout;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -64,6 +66,8 @@ public class ChatDialog extends DialogFragment {
     private boolean isRecorderPermissionGranted = false;
     private boolean  is_text_to_speech_initialized = false;
     private ImageButton backButton;
+    private RelativeLayout relativeLayout;
+    private TextView headerText;
 
     private String mCM;
     private ValueCallback<Uri> mUM;
@@ -144,6 +148,8 @@ public class ChatDialog extends DialogFragment {
 
         webView = (WebView) view.findViewById(R.id.webview);
         backButton = (ImageButton) view.findViewById(R.id.back_button);
+        relativeLayout = (RelativeLayout) view.findViewById(R.id.layout);
+        headerText = (TextView)view.findViewById(R.id.title);
 
         backButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -154,10 +160,14 @@ public class ChatDialog extends DialogFragment {
         if(GlobalParams.isDarkTheme()){
             if(WebViewFeature.isFeatureSupported(WebViewFeature.FORCE_DARK)){
                 WebSettingsCompat.setForceDark(webView.getSettings(), WebSettingsCompat.FORCE_DARK_ON);
+                relativeLayout.setBackgroundColor(getResources().getColor(R.color.light_black));
+                headerText.setTextColor(getResources().getColor(R.color.white));
             }
         }else {
             if(WebViewFeature.isFeatureSupported(WebViewFeature.FORCE_DARK)){
                 WebSettingsCompat.setForceDark(webView.getSettings(), WebSettingsCompat.FORCE_DARK_OFF);
+                relativeLayout.setBackgroundColor(getResources().getColor(R.color.light_white));
+                headerText.setTextColor(getResources().getColor(R.color.black));
             }
         }
         webView.setScrollbarFadingEnabled(true);
@@ -248,6 +258,10 @@ public class ChatDialog extends DialogFragment {
                     }
 
                 }else if (url != null && url.contains("mailto:")) {
+                    view.getContext().startActivity(
+                            new Intent(Intent.ACTION_VIEW, Uri.parse(url)));
+                    return true;
+                } else if(url != null && url.contains("tel:")) {
                     view.getContext().startActivity(
                             new Intent(Intent.ACTION_VIEW, Uri.parse(url)));
                     return true;
