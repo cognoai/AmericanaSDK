@@ -14,7 +14,7 @@
     <EditText
         android:layout_width="match_parent"
         android:layout_height="60dp"
-        android:text="https://sbisecurities-uat.allincall.in/chat/index/?id=1&amp;channel=Android"
+        android:text="https://sbisecurities-uat.allincall.in"
         android:gravity="center"
         android:hint="Domain Name"
         android:id="@+id/domain_et"

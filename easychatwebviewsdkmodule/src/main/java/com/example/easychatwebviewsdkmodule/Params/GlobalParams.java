@@ -10,14 +10,14 @@ public class GlobalParams {
     public static String base_url;
     public static String access_token = "";
     public static boolean access_token_verified = false;
-    private static boolean darkTheme = false;
+    private static String theme = "Light";
 
-    public static boolean isDarkTheme() {
-        return darkTheme;
+    public static String getTheme() {
+        return theme;
     }
 
-    public static void setDarkTheme(boolean darkTheme) {
-        GlobalParams.darkTheme = darkTheme;
+    public static void setTheme(String theme) {
+        GlobalParams.theme = theme;
     }
 
     public static String getAccess_token() {

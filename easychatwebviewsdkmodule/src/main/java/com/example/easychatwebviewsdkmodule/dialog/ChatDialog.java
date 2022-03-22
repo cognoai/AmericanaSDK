@@ -55,6 +55,8 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 
 import static android.app.Activity.RESULT_OK;
+import static androidx.webkit.WebSettingsCompat.FORCE_DARK_OFF;
+import static androidx.webkit.WebSettingsCompat.FORCE_DARK_ON;
 
 
 public class ChatDialog extends DialogFragment {
@@ -157,18 +159,38 @@ public class ChatDialog extends DialogFragment {
                 sendDataToWebView();
             }
         });
-        if(GlobalParams.isDarkTheme()){
-            if(WebViewFeature.isFeatureSupported(WebViewFeature.FORCE_DARK)){
-                WebSettingsCompat.setForceDark(webView.getSettings(), WebSettingsCompat.FORCE_DARK_ON);
-                relativeLayout.setBackgroundColor(getResources().getColor(R.color.light_black));
-                headerText.setTextColor(getResources().getColor(R.color.white));
-            }
-        }else {
-            if(WebViewFeature.isFeatureSupported(WebViewFeature.FORCE_DARK)){
-                WebSettingsCompat.setForceDark(webView.getSettings(), WebSettingsCompat.FORCE_DARK_OFF);
-                relativeLayout.setBackgroundColor(getResources().getColor(R.color.light_white));
-                headerText.setTextColor(getResources().getColor(R.color.black));
-            }
+        switch (GlobalParams.getTheme()) {
+            case "Dark":
+                if (WebViewFeature.isFeatureSupported(WebViewFeature.FORCE_DARK)) {
+                    WebSettingsCompat.setForceDark(webView.getSettings(), WebSettingsCompat.FORCE_DARK_ON);
+                    relativeLayout.setBackgroundColor(getResources().getColor(R.color.light_black));
+                    headerText.setTextColor(getResources().getColor(R.color.white));
+                }
+                break;
+            case "Automatic":
+                if (WebViewFeature.isFeatureSupported(WebViewFeature.FORCE_DARK)) {
+                    switch (getResources().getConfiguration().uiMode & Configuration.UI_MODE_NIGHT_MASK) {
+                        case Configuration.UI_MODE_NIGHT_YES:
+                            WebSettingsCompat.setForceDark(webView.getSettings(), FORCE_DARK_ON);
+                            relativeLayout.setBackgroundColor(getResources().getColor(R.color.light_black));
+                            headerText.setTextColor(getResources().getColor(R.color.white));
+                            break;
+                        case Configuration.UI_MODE_NIGHT_NO:
+                        case Configuration.UI_MODE_NIGHT_UNDEFINED:
+                            WebSettingsCompat.setForceDark(webView.getSettings(), FORCE_DARK_OFF);
+                            relativeLayout.setBackgroundColor(getResources().getColor(R.color.light_white));
+                            headerText.setTextColor(getResources().getColor(R.color.black));
+                            break;
+                    }
+                }
+                break;
+            case "Light":
+                if (WebViewFeature.isFeatureSupported(WebViewFeature.FORCE_DARK)) {
+                    WebSettingsCompat.setForceDark(webView.getSettings(), FORCE_DARK_OFF);
+                    relativeLayout.setBackgroundColor(getResources().getColor(R.color.light_white));
+                    headerText.setTextColor(getResources().getColor(R.color.black));
+                }
+                break;
         }
         webView.setScrollbarFadingEnabled(true);
         webView.setVerticalScrollBarEnabled(false);

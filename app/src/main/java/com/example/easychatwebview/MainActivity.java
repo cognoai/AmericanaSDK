@@ -28,7 +28,7 @@ EditText domain, bot_id, token_et;
         token_et = findViewById(R.id.access_token_et);
         verify_access_token = findViewById(R.id.verify_access_token);
 
-        EasyChat.setDarkTheme(true);
+        EasyChat.setTheme("Automatic");
 
         btn.setOnClickListener(new View.OnClickListener() {
             @Override
