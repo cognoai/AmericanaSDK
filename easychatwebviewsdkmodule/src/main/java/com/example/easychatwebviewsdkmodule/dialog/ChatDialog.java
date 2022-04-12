@@ -47,7 +47,9 @@ import androidx.webkit.WebViewFeature;
 import com.example.easychatwebviewsdkmodule.Params.GlobalParams;
 import com.example.easychatwebviewsdkmodule.R;
 import com.example.easychatwebviewsdkmodule.WebViewClient.MyWebViewClient;
+import com.example.easychatwebviewsdkmodule.utils.LanguageUtils;
 import com.example.easychatwebviewsdkmodule.utils.SpeechToText;
+import com.example.easychatwebviewsdkmodule.utils.TextToSpeech;
 
 import java.io.File;
 import java.io.IOException;
@@ -68,8 +70,10 @@ public class ChatDialog extends DialogFragment {
     private boolean isRecorderPermissionGranted = false;
     private boolean  is_text_to_speech_initialized = false;
     private ImageButton backButton;
-    private RelativeLayout relativeLayout;
-    private TextView headerText;
+//    private RelativeLayout relativeLayout;
+//    private TextView headerText;
+    private TextToSpeech textToSpeech;
+    private LanguageUtils languageUtils;
 
     private String mCM;
     private ValueCallback<Uri> mUM;
@@ -149,22 +153,17 @@ public class ChatDialog extends DialogFragment {
         super.onViewCreated(view, savedInstanceState);
 
         webView = (WebView) view.findViewById(R.id.webview);
-        backButton = (ImageButton) view.findViewById(R.id.back_button);
-        relativeLayout = (RelativeLayout) view.findViewById(R.id.layout);
-        headerText = (TextView)view.findViewById(R.id.title);
+//        relativeLayout = (RelativeLayout) view.findViewById(R.id.layout);
+//        headerText = (TextView)view.findViewById(R.id.title);
+        languageUtils = new LanguageUtils();
 
-        backButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                sendDataToWebView();
-            }
-        });
+        initializeTextToSpeech();
         switch (GlobalParams.getTheme()) {
             case "Dark":
                 if (WebViewFeature.isFeatureSupported(WebViewFeature.FORCE_DARK)) {
                     WebSettingsCompat.setForceDark(webView.getSettings(), WebSettingsCompat.FORCE_DARK_ON);
-                    relativeLayout.setBackgroundColor(getResources().getColor(R.color.light_black));
-                    headerText.setTextColor(getResources().getColor(R.color.white));
+//                    relativeLayout.setBackgroundColor(getResources().getColor(R.color.light_black));
+//                    headerText.setTextColor(getResources().getColor(R.color.white));
                 }
                 break;
             case "Automatic":
@@ -172,14 +171,14 @@ public class ChatDialog extends DialogFragment {
                     switch (getResources().getConfiguration().uiMode & Configuration.UI_MODE_NIGHT_MASK) {
                         case Configuration.UI_MODE_NIGHT_YES:
                             WebSettingsCompat.setForceDark(webView.getSettings(), FORCE_DARK_ON);
-                            relativeLayout.setBackgroundColor(getResources().getColor(R.color.light_black));
-                            headerText.setTextColor(getResources().getColor(R.color.white));
+//                            relativeLayout.setBackgroundColor(getResources().getColor(R.color.light_black));
+//                            headerText.setTextColor(getResources().getColor(R.color.white));
                             break;
                         case Configuration.UI_MODE_NIGHT_NO:
                         case Configuration.UI_MODE_NIGHT_UNDEFINED:
                             WebSettingsCompat.setForceDark(webView.getSettings(), FORCE_DARK_OFF);
-                            relativeLayout.setBackgroundColor(getResources().getColor(R.color.light_white));
-                            headerText.setTextColor(getResources().getColor(R.color.black));
+//                            relativeLayout.setBackgroundColor(getResources().getColor(R.color.light_white));
+//                            headerTheaderTextext.setTextColor(getResources().getColor(R.color.black));
                             break;
                     }
                 }
@@ -187,8 +186,8 @@ public class ChatDialog extends DialogFragment {
             case "Light":
                 if (WebViewFeature.isFeatureSupported(WebViewFeature.FORCE_DARK)) {
                     WebSettingsCompat.setForceDark(webView.getSettings(), FORCE_DARK_OFF);
-                    relativeLayout.setBackgroundColor(getResources().getColor(R.color.light_white));
-                    headerText.setTextColor(getResources().getColor(R.color.black));
+//                    relativeLayout.setBackgroundColor(getResources().getColor(R.color.light_white));
+//                    headerText.setTextColor(getResources().getColor(R.color.black));
                 }
                 break;
         }
@@ -232,6 +231,20 @@ public class ChatDialog extends DialogFragment {
                 GlobalParams.setBot_minimized(false);
                 dismiss();
 
+            }
+
+            @JavascriptInterface           // For API 17+
+            public  void  textToSpeech(String text, String languageCode) {
+                Log.i("TAG", "textToSpeech: " + text);
+                languageCode = languageUtils.getMappedLanguage(languageCode);
+                textToSpeech.convertTextToSpeech(text, languageCode);
+            }
+
+            @JavascriptInterface           // For API 17+
+            public  void  terminateTextToSpeech() {
+                Log.i("TAG", "textToSpeech shutdow: ");
+
+                textToSpeech.terminateTextToSpeech();
             }
 
             @JavascriptInterface
@@ -465,6 +478,14 @@ public class ChatDialog extends DialogFragment {
         }
     }
 
+    private void initializeTextToSpeech() {
+        Log.d("TextToSpeech", "initializeTextToSpeech: " + textToSpeech);
+        textToSpeech = new TextToSpeech(getContext());
+        if (textToSpeech.getTextToSpeech() == null) {
+            textToSpeech.initialiseTextToSpeech();
+        }
+    }
+
     protected void checkPermission(){
         if(ContextCompat.checkSelfPermission(getActivity(),Manifest.permission.CAMERA)
                 + ContextCompat.checkSelfPermission(
@@ -500,7 +521,7 @@ public class ChatDialog extends DialogFragment {
                 AlertDialog dialog = builder.create();
                 dialog.show();
             }else{
-                // Directly request for required permissions, without explanation
+                // convertTextToSpeechDirectly request for required permissions, without explanation
                 ActivityCompat.requestPermissions(
                         getActivity(),
                         new String[]{

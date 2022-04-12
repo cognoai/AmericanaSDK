@@ -83,6 +83,8 @@ public class EasyChat {
                         Log.d("accessTokenResponse", "onChanged() called with: accessTokenResponse = [" + accessTokenResponse.toString() + "]");
                         if (accessTokenResponse.getStatus() == 200) {
                             GlobalParams.access_token_verified = true;
+                            Toast.makeText(fragmentActivity, "Access Token Verified", Toast.LENGTH_SHORT).show();
+
                         } else {
                             GlobalParams.access_token_verified = false;
                         }
