@@ -79,7 +79,7 @@ public class ChatDialog extends DialogFragment {
     private ValueCallback<Uri> mUM;
     private ValueCallback<Uri[]> mUMA;
     private final static int FCR=1;
-
+    private String category_name_param = "";
     private static final int MY_PERMISSIONS_REQUEST_CODE = 123;
 
 
@@ -351,22 +351,6 @@ public class ChatDialog extends DialogFragment {
                     mUMA.onReceiveValue(null);
                 }
                 mUMA = filePathCallback;
-//                Intent takePictureIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-//                if(takePictureIntent.resolveActivity(getActivity().getPackageManager()) != null){
-//                    File photoFile = null;
-//                    try{
-//                        photoFile = createImageFile();
-//                        takePictureIntent.putExtra("PhotoPath", mCM);
-//                    }catch(IOException ex){
-//                        Log.e("TAG", "Image file creation failed", ex);
-//                    }
-//                    if(photoFile != null){
-//                        mCM = "file:" + photoFile.getAbsolutePath();
-//                        takePictureIntent.putExtra(MediaStore.EXTRA_OUTPUT, Uri.fromFile(photoFile));
-//                    }else{
-//                        takePictureIntent = null;
-//                    }
-//                }
                 Intent contentSelectionIntent = new Intent(Intent.ACTION_GET_CONTENT);
                 contentSelectionIntent.addCategory(Intent.CATEGORY_OPENABLE);
                 contentSelectionIntent.setType("*/*");
@@ -383,17 +367,10 @@ public class ChatDialog extends DialogFragment {
                 return true;
             }
         });
-
-//        "/chat/index/?id=" + BOT_ID + '&name=' + BOT_NAME + '&theme=' +
-//                BOT_THEME + '&easychat_window_location=' + easychat_window_location +
-//                '&form_assist_id=' + easychat_form_assist_id + '&do_not_disturb=' + easychat_do_not_disturb +
-//                '&is_lead_generation=' + is_lead_generation + '&page_category=' + easychat_page_category.toString() +
-//                '&meta_data=' + meta_tags_information + '&easychat_intent_name=' + easychat_intent_name +
-//                '&is_web_landing_allowed=' + is_web_landing_allowed + '&campaign_link_query_id=' + campaign_link_query_id +
-//                '&selected_language=' + selected_language + '&is_initial_trigger_intent=' + is_initial_trigger_intent +
-//                '&web_page_source=' + web_page_source;
-//        String finalUrl = GlobalParams.domain_name+"/chat/bot/?id="+GlobalParams.bot_id+"&name=uat";
-        String finalUrl = GlobalParams.getBase_url()+"/chat/index/?id="+GlobalParams.bot_id+"&channel=Android";
+        if (!GlobalParams.getCategoryName().isEmpty()) {
+            category_name_param = "&category_name=" + GlobalParams.getCategoryName();
+        }
+        String finalUrl = GlobalParams.getBase_url()+"/chat/index/?id="+GlobalParams.bot_id+"&channel=Android" + category_name_param;
 //        webView.loadUrl("https://easychat-dev.allincall.in/chat/bot/?id=216");
         webView.loadUrl(finalUrl);
 

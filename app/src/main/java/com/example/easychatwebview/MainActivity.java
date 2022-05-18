@@ -14,7 +14,7 @@ import com.example.easychatwebviewsdkmodule.sdkclasses.EasyChat;
 
 public class MainActivity extends AppCompatActivity {
 Button btn;
-EditText domain, bot_id, token_et;
+EditText domain, bot_id, token_et, category_name_et;
     Button openTestAct, verify_access_token;
 
     @Override
@@ -27,12 +27,14 @@ EditText domain, bot_id, token_et;
         openTestAct = findViewById(R.id.open_test_activity);
         token_et = findViewById(R.id.access_token_et);
         verify_access_token = findViewById(R.id.verify_access_token);
+        category_name_et = findViewById(R.id.category_name_et);
 
         EasyChat.setTheme("Automatic");
 
         btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                EasyChat.setCategoryName(category_name_et.getText().toString());
                 EasyChat.showBot(getSupportFragmentManager(), (FragmentActivity) MainActivity.this);
             }
         });

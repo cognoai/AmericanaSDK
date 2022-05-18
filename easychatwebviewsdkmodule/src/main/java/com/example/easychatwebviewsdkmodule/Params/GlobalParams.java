@@ -1,5 +1,7 @@
 package com.example.easychatwebviewsdkmodule.Params;
 
+import android.util.Log;
+
 import com.example.easychatwebviewsdkmodule.dialog.ChatDialog;
 
 public class GlobalParams {
@@ -9,6 +11,7 @@ public class GlobalParams {
     public static ChatDialog chatDialog;
     public static String base_url;
     public static String access_token = "";
+    public static String categoryName = "";
     public static boolean access_token_verified = false;
     private static String theme = "Light";
 
@@ -66,5 +69,13 @@ public class GlobalParams {
 
     public static void setChatDialog(ChatDialog chatDialog) {
         GlobalParams.chatDialog = chatDialog;
+    }
+
+    public static String getCategoryName() {
+        return categoryName.trim();
+    }
+
+    public static void setCategoryName(String categoryName) {
+        GlobalParams.categoryName = categoryName;
     }
 }

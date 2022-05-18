@@ -47,7 +47,7 @@ public class TextToSpeech {
         if (!message.isEmpty()) {
             int result = textToSpeech.setLanguage(Locale.forLanguageTag(languageCode));
 //            installLanguageCode(result);
-            textToSpeech.speak(message, android.speech.tts.TextToSpeech.QUEUE_FLUSH, null, "EasyChat");
+            textToSpeech.speak(message, android.speech.tts.TextToSpeech.QUEUE_ADD, null, "EasyChat");
 
         }
     }

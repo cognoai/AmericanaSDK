@@ -97,6 +97,10 @@ public class EasyChat {
         GlobalParams.access_token = access_token;
     }
 
+    public static void setCategoryName(String categoryName) {
+        GlobalParams.setCategoryName(categoryName);
+    }
+
     public static void setBase_url(String base_url) {
         GlobalParams.base_url = base_url;
     }

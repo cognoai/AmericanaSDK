@@ -1,4 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
+
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
@@ -31,9 +32,17 @@
     <EditText
         android:layout_width="match_parent"
         android:layout_height="60dp"
-        android:text=""
+        android:hint="Access Token"
         android:gravity="center"
         android:id="@+id/access_token_et"
+        />
+
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Category Name(leave empty for all categories)"
+        android:gravity="center"
+        android:id="@+id/category_name_et"
         />
 
     <Button
