@@ -55,6 +55,7 @@ import java.io.File;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.Timer;
 
 import static android.app.Activity.RESULT_OK;
 import static androidx.webkit.WebSettingsCompat.FORCE_DARK_OFF;
@@ -218,9 +219,28 @@ public class ChatDialog extends DialogFragment {
             public void minimize()
             {
                 Log.i("TAG", "minimize: clicked");
-//                GlobalParams.setBot_minimized(true);
-//                if(GlobalParams.getChatDialog().getDialog().isShowing())
-//                GlobalParams.getChatDialog().getDialog().hide();
+                GlobalParams.setBot_minimized(true);
+                if(GlobalParams.getChatDialog().getDialog().isShowing()) {
+                    final Timer t = new java.util.Timer();
+                    t.schedule(
+                            new java.util.TimerTask() {
+                                @Override
+                                public void run() {
+                                    getActivity().runOnUiThread(new Runnable() {
+                                        @Override
+                                        public void run() {
+                                            GlobalParams.getChatDialog().getDialog().hide();
+                                        }
+                                    }
+                                    );
+                                    t.cancel();
+                                }
+
+                            },
+                            300
+                    );
+
+                }
 
             }
 
