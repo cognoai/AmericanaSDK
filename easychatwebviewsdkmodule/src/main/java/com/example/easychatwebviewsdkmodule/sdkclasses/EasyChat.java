@@ -31,36 +31,13 @@ public class EasyChat {
     public static void showBot(FragmentManager fragmentManager, FragmentActivity fragmentActivity) {
         if( GlobalParams.access_token_verified) {
             Log.i("TAG", "showBot: " + GlobalParams.isBot_minimized());
-            if (GlobalParams.isBot_minimized()) {
-                GlobalParams.setBot_minimized(false);
-                if (GlobalParams.getChatDialog() != null) {
-                    if (GlobalParams.getChatDialog().getDialog() != null) {
-                        GlobalParams.getChatDialog().getDialog().show();
-                    } else {
-                        ChatDialog cd = (ChatDialog) ChatDialog.newInstance("ChatDialog");
-                        GlobalParams.setChatDialog(cd);
-                        GlobalParams.setBot_minimized(false);
-//                        showDialog(cd, "chats");
-                        cd.show(fragmentManager, "chats");
-                    }
-                } else {
-
-                    ChatDialog cd = (ChatDialog) ChatDialog.newInstance("ChatDialog");
-                    GlobalParams.setChatDialog(cd);
-                    GlobalParams.setBot_minimized(false);
-//                    showDialog(cd, "chats");
-                    cd.show(fragmentManager, "chats");
-                }
-
-            } else {
 
                 ChatDialog cd = (ChatDialog) ChatDialog.newInstance("ChatDialog");
                 GlobalParams.setChatDialog(cd);
                 GlobalParams.setBot_minimized(false);
-//                showDialog(cd, "chats");
 
                 cd.show(fragmentManager, "chats");
-            }
+
         } else {
             Toast.makeText(fragmentActivity, "Something went wrong", Toast.LENGTH_SHORT).show();
         }
@@ -83,8 +60,6 @@ public class EasyChat {
                         Log.d("accessTokenResponse", "onChanged() called with: accessTokenResponse = [" + accessTokenResponse.toString() + "]");
                         if (accessTokenResponse.getStatus() == 200) {
                             GlobalParams.access_token_verified = true;
-                            Toast.makeText(fragmentActivity, "Access Token Verified", Toast.LENGTH_SHORT).show();
-
                         } else {
                             GlobalParams.access_token_verified = false;
                         }
@@ -101,6 +76,10 @@ public class EasyChat {
         GlobalParams.setCategoryName(categoryName);
     }
 
+    public static boolean isAccessTokenVerified() {
+        return GlobalParams.access_token_verified;
+    }
+
     public static void setBase_url(String base_url) {
         GlobalParams.base_url = base_url;
     }
@@ -112,4 +91,11 @@ public class EasyChat {
     public static void setTheme(String theme){
         GlobalParams.setTheme(theme);
     }
+
+    public static void setFinalUrl(String url) {GlobalParams.setFinalUrl(url);}
+
+    public static void setSelectedLanguage(String selectedLanguage) {GlobalParams.setSelected_language(selectedLanguage);}
+
+    // Uncomment this in case you want to retain the previous chat permanently
+//    public static void setStoreChatPermanently(boolean isStoreChatPermanently) {GlobalParams.setStoreChatPermanently(isStoreChatPermanently);}
 }

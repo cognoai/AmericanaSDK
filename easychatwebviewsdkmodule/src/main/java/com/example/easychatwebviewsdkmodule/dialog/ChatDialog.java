@@ -56,6 +56,7 @@ import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Timer;
+import java.util.UUID;
 
 import static android.app.Activity.RESULT_OK;
 import static androidx.webkit.WebSettingsCompat.FORCE_DARK_OFF;
@@ -220,27 +221,7 @@ public class ChatDialog extends DialogFragment {
             {
                 Log.i("TAG", "minimize: clicked");
                 GlobalParams.setBot_minimized(true);
-                if(GlobalParams.getChatDialog().getDialog().isShowing()) {
-                    final Timer t = new java.util.Timer();
-                    t.schedule(
-                            new java.util.TimerTask() {
-                                @Override
-                                public void run() {
-                                    getActivity().runOnUiThread(new Runnable() {
-                                        @Override
-                                        public void run() {
-                                            GlobalParams.getChatDialog().getDialog().hide();
-                                        }
-                                    }
-                                    );
-                                    t.cancel();
-                                }
-
-                            },
-                            300
-                    );
-
-                }
+                dismiss();
 
             }
 
@@ -248,8 +229,59 @@ public class ChatDialog extends DialogFragment {
             public void close()
             {
                 Log.i("TAG", "close: clicked");
-                GlobalParams.setBot_minimized(false);
+                String uuid = UUID.randomUUID().toString();
+                GlobalParams.setRandom_uuid(uuid);
+                GlobalParams.setSelected_language("en");
+//                GlobalParams.setBot_minimized(false);
                 dismiss();
+
+            }
+
+            @JavascriptInterface           // For API 17+
+            public void reload_chatbot() {
+                String finalUrl = GlobalParams.getFinalUrl();
+                String mobile_session_id = GlobalParams.getMobileSessionId();
+                String uuid = UUID.randomUUID().toString();
+                GlobalParams.setRandom_uuid(uuid);
+                if (finalUrl.isEmpty()) {
+                    finalUrl = GlobalParams.getBase_url()+"/chat/index/?id="+GlobalParams.bot_id+"&channel=Android" + category_name_param + "&mobile_session_id=" + mobile_session_id;
+                    if (!GlobalParams.isStoreChatPermanently()) {
+                        finalUrl += GlobalParams.getRandom_uuid();
+                    }
+                } else {
+                    String query_value = mobile_session_id;
+                    if (!GlobalParams.isStoreChatPermanently()) {
+                        query_value += GlobalParams.getRandom_uuid();
+                    }
+                    finalUrl = appendQueryParameterToUri("mobile_session_id", query_value, finalUrl);
+
+                }
+
+                if (!GlobalParams.getSelected_language().isEmpty()) {
+                    String query_value = GlobalParams.getSelected_language();
+                    finalUrl = appendQueryParameterToUri("selected_language", query_value, finalUrl);
+                }
+
+                final Timer t = new java.util.Timer();
+                String finalUrl1 = finalUrl;
+                t.schedule(
+                        new java.util.TimerTask() {
+                            @Override
+                            public void run() {
+                                getActivity().runOnUiThread(new Runnable() {
+                                    @Override
+                                    public void run() {
+                                        webView.loadUrl(finalUrl1);
+                                    }
+                                }
+                                );
+                                t.cancel();
+                            }
+
+                        },
+                        300
+                );
+
 
             }
 
@@ -305,6 +337,11 @@ public class ChatDialog extends DialogFragment {
             public boolean shouldOverrideUrlLoading(WebView view, String url) {
                 if (url != null && (url.startsWith("http://") || url.startsWith("https://"))) {
                     if (url.contains("&channel=Android")) {
+                        Uri uri = Uri.parse(url);
+                        String selected_language = uri.getQueryParameter("selected_language");
+                        if (selected_language != null || !selected_language.isEmpty()) {
+                            GlobalParams.setSelected_language(selected_language);
+                        }
                         return super.shouldOverrideUrlLoading(view, url);
                     } else {
                         view.getContext().startActivity(
@@ -390,8 +427,34 @@ public class ChatDialog extends DialogFragment {
         if (!GlobalParams.getCategoryName().isEmpty()) {
             category_name_param = "&category_name=" + GlobalParams.getCategoryName();
         }
-        String finalUrl = GlobalParams.getBase_url()+"/chat/index/?id="+GlobalParams.bot_id+"&channel=Android" + category_name_param;
-//        webView.loadUrl("https://easychat-dev.allincall.in/chat/bot/?id=216");
+
+        // code to handle session chats
+        String finalUrl = GlobalParams.getFinalUrl();
+        String mobile_session_id = GlobalParams.getMobileSessionId();
+        if (GlobalParams.getRandom_uuid().isEmpty()) {
+            String uuid = UUID.randomUUID().toString();
+            GlobalParams.setRandom_uuid(uuid);
+        }
+        if (finalUrl.isEmpty()) {
+            Toast.makeText(getContext(), "Final Url - Empty", Toast.LENGTH_SHORT).show();
+            finalUrl = GlobalParams.getBase_url()+"/chat/index/?id="+GlobalParams.bot_id+"&channel=Android" + category_name_param + "&mobile_session_id=" + mobile_session_id;
+            if (!GlobalParams.isStoreChatPermanently()) {
+                finalUrl += GlobalParams.getRandom_uuid();
+            }
+        } else {
+            String query_value = mobile_session_id;
+            if (!GlobalParams.isStoreChatPermanently()) {
+                query_value += GlobalParams.getRandom_uuid();
+            }
+            finalUrl = appendQueryParameterToUri("mobile_session_id", query_value, finalUrl);
+
+        }
+
+        if (!GlobalParams.getSelected_language().isEmpty()) {
+            String query_value = GlobalParams.getSelected_language();
+            finalUrl = appendQueryParameterToUri("selected_language", query_value, finalUrl);
+        }
+
         webView.loadUrl(finalUrl);
 
         checkPermissionsForMic();
@@ -405,8 +468,6 @@ public class ChatDialog extends DialogFragment {
 
 
     }
-
-
 
     // Create an image file
     private File createImageFile() throws IOException{
@@ -548,6 +609,13 @@ public class ChatDialog extends DialogFragment {
     private void sendDataToWebView(){
         webView.evaluateJavascript(
                 "javascript: " +"open_chat_termination_modal()",null);
+    }
+
+    public String appendQueryParameterToUri(String key, String value, String url) {
+        Uri.Builder builder = Uri.parse(url).buildUpon();
+        builder.appendQueryParameter(key, value);
+        url = builder.build().toString();
+        return url;
     }
 
 }

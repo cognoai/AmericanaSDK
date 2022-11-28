@@ -15,6 +15,12 @@ public class GlobalParams {
     public static boolean access_token_verified = false;
     private static String theme = "Light";
 
+    private static String finalUrl = "";
+    private static String mobileSessionId = "";
+    private static boolean storeChatPermanently = false;
+    private static String random_uuid = "";
+    private static String selected_language = "";
+
     public static String getTheme() {
         return theme;
     }
@@ -77,5 +83,45 @@ public class GlobalParams {
 
     public static void setCategoryName(String categoryName) {
         GlobalParams.categoryName = categoryName;
+    }
+
+    public static String getFinalUrl() {
+        return finalUrl;
+    }
+
+    public static void setFinalUrl(String finalUrl) {
+        GlobalParams.finalUrl = finalUrl;
+    }
+
+    public static String getMobileSessionId() {
+        return mobileSessionId;
+    }
+
+    public static void setMobileSessionId(String mobileSessionId) {
+        GlobalParams.mobileSessionId = mobileSessionId;
+    }
+
+    public static boolean isStoreChatPermanently() {
+        return storeChatPermanently;
+    }
+
+    public static void setStoreChatPermanently(boolean storeChatPermanently) {
+        GlobalParams.storeChatPermanently = storeChatPermanently;
+    }
+
+    public static String getRandom_uuid() {
+        return random_uuid;
+    }
+
+    public static void setRandom_uuid(String random_uuid) {
+        GlobalParams.random_uuid = random_uuid;
+    }
+
+    public static String getSelected_language() {
+        return selected_language;
+    }
+
+    public static void setSelected_language(String selected_language) {
+        GlobalParams.selected_language = selected_language;
     }
 }

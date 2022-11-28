@@ -45,6 +45,14 @@
         android:id="@+id/category_name_et"
         />
 
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Final Url(leave empty incase you don't have predefined url)"
+        android:gravity="center"
+        android:id="@+id/final_url_et"
+        />
+
     <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -62,8 +70,8 @@
     <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Open Bot"
-        android:visibility="gone"
+        android:text="Open Activity 2"
+        android:visibility="visible"
         android:id="@+id/open_test_activity"
         />
 

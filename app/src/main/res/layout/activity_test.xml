@@ -11,7 +11,7 @@
     <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="open WebView"
+        android:text="open Activity 1 again"
         android:textSize="16sp"
         android:id="@+id/open_web_view"/>
 </LinearLayout>
