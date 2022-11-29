@@ -2,7 +2,9 @@ package com.example.easychatwebviewsdkmodule.rest;
 
 import com.example.easychatwebviewsdkmodule.Params.GlobalParams;
 import com.example.easychatwebviewsdkmodule.modal.Request.AccessTokenRequestPacket;
+import com.example.easychatwebviewsdkmodule.modal.Request.LiveChatSessionExpiryRequestPacket;
 import com.example.easychatwebviewsdkmodule.modal.Response.AccessTokenResponse;
+import com.example.easychatwebviewsdkmodule.modal.Response.LiveChatSessionExpiryResponse;
 
 import retrofit2.Call;
 import retrofit2.http.Body;
@@ -15,6 +17,10 @@ public interface EasyChatApi {
     @POST("/chat/verify-access-token/")
     Call<AccessTokenResponse> verifyAccessToken(@Header("Content-Type") String contentType,
                                                 @Body AccessTokenRequestPacket accessTokenRequestPacket);
+
+    @POST("/livechat/get-livechat-session-expire/")
+    Call<LiveChatSessionExpiryResponse> liveChatSessionExpiry(@Header("Content-Type") String contentType,
+                                                          @Body LiveChatSessionExpiryRequestPacket liveChatSessionExpiryRequestPacket);
 
 
 

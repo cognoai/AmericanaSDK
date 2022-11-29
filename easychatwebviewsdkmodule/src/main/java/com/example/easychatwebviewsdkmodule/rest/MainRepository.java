@@ -7,7 +7,9 @@ import androidx.lifecycle.MutableLiveData;
 
 import com.example.easychatwebviewsdkmodule.Params.GlobalParams;
 import com.example.easychatwebviewsdkmodule.modal.Request.AccessTokenRequestPacket;
+import com.example.easychatwebviewsdkmodule.modal.Request.LiveChatSessionExpiryRequestPacket;
 import com.example.easychatwebviewsdkmodule.modal.Response.AccessTokenResponse;
+import com.example.easychatwebviewsdkmodule.modal.Response.LiveChatSessionExpiryResponse;
 import com.example.easychatwebviewsdkmodule.utils.CryptoUtils;
 import com.google.gson.Gson;
 
@@ -36,6 +38,7 @@ public class MainRepository {
     private EasyChatApi easyChatApi;
     private Gson gson;
     MutableLiveData<AccessTokenResponse> accessTokenMutableLiveData = new MutableLiveData<>();
+    MutableLiveData<LiveChatSessionExpiryResponse> liveChatSessionResponseMutableLiveData = new MutableLiveData<>();
 
     private CompositeDisposable disposables = new CompositeDisposable();
 
@@ -88,9 +91,69 @@ public class MainRepository {
         return accessTokenMutableLiveData;
     }
 
+    public LiveChatSessionExpiryResponse liveChatSessionExpiry(LiveChatSessionExpiryRequestPacket liveChatSessionExpiryRequestPacket) {
+        Log.d(TAG, "liveChatSessionExpiry() called with: liveChatSessionExpiryRequestPacket = [" + liveChatSessionExpiryRequestPacket.toString() + "]");
+        Call<LiveChatSessionExpiryResponse> call = easyChatApi.liveChatSessionExpiry("application/json", liveChatSessionExpiryRequestPacket);
+        LiveChatSessionExpiryResponse resp = new LiveChatSessionExpiryResponse(500);
+        Thread thread = new Thread(new Runnable() {
+
+            @Override
+            public void run() {
+                try  {
+                    try {
+
+                        resp.setStatus(call.execute().body().getStatus());
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+                    //Your code goes here
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            }
+        });
+
+        thread.start();
+
+        try
+        {
+            thread.join();
+        }catch(Exception e) {e.printStackTrace();}
+
+
+        return resp;
+//        call.enqueue(new Callback<LiveChatSessionExpiryResponse>() {
+//            @Override
+//            public void onResponse(Call<LiveChatSessionExpiryResponse> call, Response<LiveChatSessionExpiryResponse> response) {
+//                Log.d(TAG, "onResponse: before success" + response.body());
+//                if (response.isSuccessful()) {
+//                    if (response.body() != null) {
+//                        LiveChatSessionExpiryResponse liveChatSessionExpiryResponse = response.body();
+//                        Log.d(TAG, "onResponse: " + liveChatSessionExpiryResponse.toString());
+//                        liveChatSessionResponseMutableLiveData.setValue(liveChatSessionExpiryResponse);
+//                    }
+//                } else {
+//                    Log.d(TAG, "onResponse: " + response);
+//                }
+//            }
+//
+//            @Override
+//            public void onFailure(Call<LiveChatSessionExpiryResponse> call, Throwable t) {
+//                Log.d(TAG, "onFailure: failed " + t.getMessage());
+//
+//            }
+//        });
+
+
+    }
+
 
     public MutableLiveData<AccessTokenResponse> getAcessTokenMutableLiveData() {
         return accessTokenMutableLiveData;
+    }
+
+    public MutableLiveData<LiveChatSessionExpiryResponse> getLiveChatSessionResponseMutableLiveData() {
+        return liveChatSessionResponseMutableLiveData;
     }
 
 

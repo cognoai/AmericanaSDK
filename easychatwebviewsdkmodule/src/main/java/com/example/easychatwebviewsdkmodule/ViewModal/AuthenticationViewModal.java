@@ -4,7 +4,9 @@ import androidx.lifecycle.LiveData;
 import androidx.lifecycle.ViewModel;
 
 import com.example.easychatwebviewsdkmodule.modal.Request.AccessTokenRequestPacket;
+import com.example.easychatwebviewsdkmodule.modal.Request.LiveChatSessionExpiryRequestPacket;
 import com.example.easychatwebviewsdkmodule.modal.Response.AccessTokenResponse;
+import com.example.easychatwebviewsdkmodule.modal.Response.LiveChatSessionExpiryResponse;
 import com.example.easychatwebviewsdkmodule.rest.MainRepository;
 
 public class AuthenticationViewModal extends ViewModel {
@@ -20,7 +22,15 @@ public class AuthenticationViewModal extends ViewModel {
         return mainRepository.verifyAccessToken(accessTokenRequestPacket);
     }
 
+    public LiveChatSessionExpiryResponse liveChatSessionExpiry(LiveChatSessionExpiryRequestPacket liveChatSessionExpiryRequestPacket) {
+        return mainRepository.liveChatSessionExpiry(liveChatSessionExpiryRequestPacket);
+    }
+
     public void resetAccessTokenResponseMutableLiveData() {
         mainRepository.getAcessTokenMutableLiveData().setValue(null);
+    }
+
+    public void resetLiveChatSessionResponseMutableLiveData() {
+        mainRepository.getLiveChatSessionResponseMutableLiveData().setValue(null);
     }
 }

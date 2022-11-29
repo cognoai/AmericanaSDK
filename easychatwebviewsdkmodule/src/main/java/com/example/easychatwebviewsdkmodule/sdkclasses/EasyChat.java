@@ -39,7 +39,7 @@ public class EasyChat {
                 cd.show(fragmentManager, "chats");
 
         } else {
-            Toast.makeText(fragmentActivity, "Something went wrong", Toast.LENGTH_SHORT).show();
+            Toast.makeText(fragmentActivity, "Something went wrong. Please verify access token.", Toast.LENGTH_SHORT).show();
         }
     }
 

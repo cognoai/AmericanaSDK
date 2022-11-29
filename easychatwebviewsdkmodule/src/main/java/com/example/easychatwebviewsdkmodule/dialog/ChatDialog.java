@@ -41,12 +41,21 @@ import androidx.appcompat.app.AlertDialog;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 import androidx.fragment.app.DialogFragment;
+import androidx.fragment.app.FragmentActivity;
+import androidx.lifecycle.LifecycleOwner;
+import androidx.lifecycle.Observer;
+import androidx.lifecycle.ViewModelProviders;
 import androidx.webkit.WebSettingsCompat;
 import androidx.webkit.WebViewFeature;
 
 import com.example.easychatwebviewsdkmodule.Params.GlobalParams;
 import com.example.easychatwebviewsdkmodule.R;
+import com.example.easychatwebviewsdkmodule.ViewModal.AuthenticationViewModal;
 import com.example.easychatwebviewsdkmodule.WebViewClient.MyWebViewClient;
+import com.example.easychatwebviewsdkmodule.modal.Request.AccessTokenRequestPacket;
+import com.example.easychatwebviewsdkmodule.modal.Request.LiveChatSessionExpiryRequestPacket;
+import com.example.easychatwebviewsdkmodule.modal.Response.AccessTokenResponse;
+import com.example.easychatwebviewsdkmodule.modal.Response.LiveChatSessionExpiryResponse;
 import com.example.easychatwebviewsdkmodule.utils.LanguageUtils;
 import com.example.easychatwebviewsdkmodule.utils.SpeechToText;
 import com.example.easychatwebviewsdkmodule.utils.TextToSpeech;
@@ -160,6 +169,11 @@ public class ChatDialog extends DialogFragment {
         languageUtils = new LanguageUtils();
 
         initializeTextToSpeech();
+
+        if (!GlobalParams.getLiveChatSessionId().isEmpty()) {
+            String query_value = GlobalParams.getLiveChatSessionId();
+            verifyLiveChatSessionExpired(getActivity() ,query_value);
+        }
         switch (GlobalParams.getTheme()) {
             case "Dark":
                 if (WebViewFeature.isFeatureSupported(WebViewFeature.FORCE_DARK)) {
@@ -232,9 +246,16 @@ public class ChatDialog extends DialogFragment {
                 String uuid = UUID.randomUUID().toString();
                 GlobalParams.setRandom_uuid(uuid);
                 GlobalParams.setSelected_language("en");
+                GlobalParams.setLiveChatSessionId("");
 //                GlobalParams.setBot_minimized(false);
                 dismiss();
 
+            }
+
+            @JavascriptInterface           // For API 17+
+            public void setLiveChatSessionId(String liveChatSessionId)
+            {
+                GlobalParams.setLiveChatSessionId(liveChatSessionId);
             }
 
             @JavascriptInterface           // For API 17+
@@ -260,6 +281,11 @@ public class ChatDialog extends DialogFragment {
                 if (!GlobalParams.getSelected_language().isEmpty()) {
                     String query_value = GlobalParams.getSelected_language();
                     finalUrl = appendQueryParameterToUri("selected_language", query_value, finalUrl);
+                }
+
+                if (!GlobalParams.getLiveChatSessionId().isEmpty()) {
+                    String query_value = GlobalParams.getLiveChatSessionId();
+                    finalUrl = appendQueryParameterToUri("livechat_session_id", query_value, finalUrl);
                 }
 
                 final Timer t = new java.util.Timer();
@@ -436,7 +462,6 @@ public class ChatDialog extends DialogFragment {
             GlobalParams.setRandom_uuid(uuid);
         }
         if (finalUrl.isEmpty()) {
-            Toast.makeText(getContext(), "Final Url - Empty", Toast.LENGTH_SHORT).show();
             finalUrl = GlobalParams.getBase_url()+"/chat/index/?id="+GlobalParams.bot_id+"&channel=Android" + category_name_param + "&mobile_session_id=" + mobile_session_id;
             if (!GlobalParams.isStoreChatPermanently()) {
                 finalUrl += GlobalParams.getRandom_uuid();
@@ -453,6 +478,11 @@ public class ChatDialog extends DialogFragment {
         if (!GlobalParams.getSelected_language().isEmpty()) {
             String query_value = GlobalParams.getSelected_language();
             finalUrl = appendQueryParameterToUri("selected_language", query_value, finalUrl);
+        }
+
+        if (!GlobalParams.getLiveChatSessionId().isEmpty()) {
+            String query_value = GlobalParams.getLiveChatSessionId();
+            finalUrl = appendQueryParameterToUri("livechat_session_id", query_value, finalUrl);
         }
 
         webView.loadUrl(finalUrl);
@@ -616,6 +646,17 @@ public class ChatDialog extends DialogFragment {
         builder.appendQueryParameter(key, value);
         url = builder.build().toString();
         return url;
+    }
+
+    private static void verifyLiveChatSessionExpired(FragmentActivity fragmentActivity, String livechat_session_id) {
+        AuthenticationViewModal authenticationViewModal;
+        authenticationViewModal = ViewModelProviders.of(fragmentActivity).get(AuthenticationViewModal.class);
+        authenticationViewModal.init();
+        LiveChatSessionExpiryRequestPacket liveChatExpiryRequestPacket = new LiveChatSessionExpiryRequestPacket(livechat_session_id);
+        LiveChatSessionExpiryResponse resp = authenticationViewModal.liveChatSessionExpiry(liveChatExpiryRequestPacket);
+        if (resp.getStatus() == 440) {
+            GlobalParams.setLiveChatSessionId("");
+        }
     }
 
 }

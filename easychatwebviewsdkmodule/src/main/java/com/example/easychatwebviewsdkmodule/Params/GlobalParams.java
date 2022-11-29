@@ -20,6 +20,7 @@ public class GlobalParams {
     private static boolean storeChatPermanently = false;
     private static String random_uuid = "";
     private static String selected_language = "";
+    private static String liveChatSessionId = "";
 
     public static String getTheme() {
         return theme;
@@ -123,5 +124,13 @@ public class GlobalParams {
 
     public static void setSelected_language(String selected_language) {
         GlobalParams.selected_language = selected_language;
+    }
+
+    public static String getLiveChatSessionId() {
+        return liveChatSessionId;
+    }
+
+    public static void setLiveChatSessionId(String liveChatSessionId) {
+        GlobalParams.liveChatSessionId = liveChatSessionId;
     }
 }
