@@ -59,6 +59,7 @@ EditText domain, bot_id, token_et, category_name_et, final_url_et;
                 EasyChat.setBot_id(bot_id.getText().toString());
                 EasyChat.setBase_url(domain.getText().toString());
                 EasyChat.setAccess_token(token_et.getText().toString());
+                EasyChat.setSelectedLanguage("en");
 
                 EasyChat.verifyAccessToken((FragmentActivity) MainActivity.this);
                 if (EasyChat.isAccessTokenVerified()) {
