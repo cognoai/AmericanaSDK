@@ -40,7 +40,7 @@
     <EditText
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="Category Name(leave empty incase for all categories)"
+        android:hint="Category Name(Optional)"
         android:gravity="center"
         android:id="@+id/category_name_et"
         />
@@ -48,7 +48,7 @@
     <EditText
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="Final Url(leave empty incase you don't have predefined url)"
+        android:hint="Final Url(Optional)"
         android:gravity="center"
         android:id="@+id/final_url_et"
         />
