@@ -19,5 +19,6 @@ public class BaseApplication extends Application {
         EasyChat.setBot_id("2");
         EasyChat.setBase_url("https://8175-59-89-34-92.in.ngrok.io");
         EasyChat.setAccess_token("8fa64504-4ea1-44d0-b285-4157463d2b6d");
+        EasyChat.setCustomParameters("{\"name\":\"John\",\"city\":\"New York\"}");
     }
 }

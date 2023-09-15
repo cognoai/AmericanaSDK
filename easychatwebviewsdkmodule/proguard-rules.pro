@@ -149,3 +149,5 @@
 -keepclassmembers class **.R$* {
     public static <fields>;
 }
+
+-keeppackagenames

@@ -94,7 +94,7 @@ publishing {
 }
 
 artifactory {
-    contextUrl = 'http://13.234.30.99:8082/artifactory'
+    contextUrl = 'http://13.200.103.196:8082/artifactory'
     publish {
         repository {
             repoKey = 'easychat-android'

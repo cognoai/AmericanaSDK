@@ -96,6 +96,10 @@ public class EasyChat {
 
     public static void setSelectedLanguage(String selectedLanguage) {GlobalParams.setSelected_language(selectedLanguage);}
 
+    public static void setCustomParameters(String customParameters) {
+        GlobalParams.setCustomUrlParameters(customParameters);
+    }
+
     // Uncomment this in case you want to retain the previous chat permanently
 //    public static void setStoreChatPermanently(boolean isStoreChatPermanently) {GlobalParams.setStoreChatPermanently(isStoreChatPermanently);}
 }

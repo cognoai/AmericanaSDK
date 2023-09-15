@@ -64,12 +64,15 @@ import java.io.File;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.Iterator;
 import java.util.Timer;
 import java.util.UUID;
 
 import static android.app.Activity.RESULT_OK;
 import static androidx.webkit.WebSettingsCompat.FORCE_DARK_OFF;
 import static androidx.webkit.WebSettingsCompat.FORCE_DARK_ON;
+
+import org.json.JSONObject;
 
 
 public class ChatDialog extends DialogFragment {
@@ -288,6 +291,21 @@ public class ChatDialog extends DialogFragment {
                     finalUrl = appendQueryParameterToUri("livechat_session_id", query_value, finalUrl);
                 }
 
+                try {
+                    if (!GlobalParams.getCustomUrlParameters().isEmpty()) {
+                        JSONObject jsonObject = new JSONObject(GlobalParams.getCustomUrlParameters());
+                        Iterator<String> keys = jsonObject.keys();
+                        while (keys.hasNext()) {
+                            String key = keys.next();
+                            Object value = jsonObject.get(key);
+                            Log.d("ChatDialog", "onViewCreated: Key: " + key + ", Value: " + value.toString());
+                            finalUrl = appendQueryParameterToUri(key, (String) value, finalUrl);
+                        }
+                    }
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+
                 final Timer t = new java.util.Timer();
                 String finalUrl1 = finalUrl;
                 t.schedule(
@@ -483,6 +501,21 @@ public class ChatDialog extends DialogFragment {
         if (!GlobalParams.getLiveChatSessionId().isEmpty()) {
             String query_value = GlobalParams.getLiveChatSessionId();
             finalUrl = appendQueryParameterToUri("livechat_session_id", query_value, finalUrl);
+        }
+
+        try {
+            if (!GlobalParams.getCustomUrlParameters().isEmpty()) {
+                JSONObject jsonObject = new JSONObject(GlobalParams.getCustomUrlParameters());
+                Iterator<String> keys = jsonObject.keys();
+                while (keys.hasNext()) {
+                    String key = keys.next();
+                    Object value = jsonObject.get(key);
+                    Log.d("ChatDialog", "onViewCreated: Key: " + key + ", Value: " + value.toString());
+                    finalUrl = appendQueryParameterToUri(key, (String) value, finalUrl);
+                }
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
         }
 
         webView.loadUrl(finalUrl);

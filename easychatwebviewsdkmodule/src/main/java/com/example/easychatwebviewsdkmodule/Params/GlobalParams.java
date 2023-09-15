@@ -22,6 +22,8 @@ public class GlobalParams {
     private static String selected_language = "";
     private static String liveChatSessionId = "";
 
+    private static String customUrlParameters = "";
+
     public static String getTheme() {
         return theme;
     }
@@ -132,5 +134,13 @@ public class GlobalParams {
 
     public static void setLiveChatSessionId(String liveChatSessionId) {
         GlobalParams.liveChatSessionId = liveChatSessionId;
+    }
+
+    public static String getCustomUrlParameters() {
+        return customUrlParameters;
+    }
+
+    public static void setCustomUrlParameters(String customUrlParameters) {
+        GlobalParams.customUrlParameters = customUrlParameters;
     }
 }
