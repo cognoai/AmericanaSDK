@@ -1,24 +1,26 @@
 package com.example.easychatwebview;
 
-import android.app.Activity;
 import android.app.Application;
-import android.os.Bundle;
-
-import androidx.annotation.Nullable;
-
-import com.example.easychatwebviewsdkmodule.Params.GlobalParams;
 import com.example.easychatwebviewsdkmodule.sdkclasses.EasyChat;
 
 public class BaseApplication extends Application {
-
 
     @Override
     public void onCreate() {
         super.onCreate();
 
+//        Bot 1
+//        EasyChat.setBot_id("3");
+//        EasyChat.setBase_url("https://americana-uae.allincall.in");
+//        EasyChat.setAccess_token("0ef384d3-fd8a-4833-88c7-245c351c4dc0");
+//        EasyChat.setCustomParameters("{\"mobile_session_id\":\"548688878\"}");
+//        EasyChat.setSelectedLanguage("en");
+
+//        Bot 2
         EasyChat.setBot_id("2");
-        EasyChat.setBase_url("https://8175-59-89-34-92.in.ngrok.io");
-        EasyChat.setAccess_token("8fa64504-4ea1-44d0-b285-4157463d2b6d");
-        EasyChat.setCustomParameters("{\"name\":\"John\",\"city\":\"New York\"}");
+        EasyChat.setBase_url("https://americana-uae.allincall.in");
+        EasyChat.setAccess_token("6239e892-05ad-49b4-abc7-a3b0bb303309");
+        EasyChat.setCustomParameters("{\"mobile_session_id\":\"561310981\"}");
+        EasyChat.setSelectedLanguage("en");
     }
 }

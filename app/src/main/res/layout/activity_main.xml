@@ -1,5 +1,4 @@
 <?xml version="1.0" encoding="utf-8"?>
-
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
@@ -8,73 +7,138 @@
     android:gravity="center"
     android:orientation="vertical"
     tools:context=".MainActivity">
+
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Please Verify token first and then open bot."/>
-    <EditText
-        android:layout_width="match_parent"
-        android:layout_height="60dp"
-        android:text="https://easychat-dev.allincall.in"
-        android:gravity="center"
-        android:hint="Domain Name"
-        android:id="@+id/domain_et"
-        />
-    <EditText
-        android:layout_width="match_parent"
-        android:layout_height="60dp"
-        android:hint="Bot Id"
-        android:inputType="number"
-        android:gravity="center"
-        android:id="@+id/bot_id_et"
-        />
+        android:text="@string/screen_heading"
+        android:textStyle="bold"
+        android:textSize="20sp"
+        android:textColor="@color/design_default_color_primary_variant"
+        android:layout_marginHorizontal="24dp"
+        android:textAlignment="center" />
 
-    <EditText
-        android:layout_width="match_parent"
-        android:layout_height="60dp"
-        android:hint="Access Token"
-        android:gravity="center"
-        android:id="@+id/access_token_et"
-        />
-
-    <EditText
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/domain"
+        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="Category Name(Optional)"
-        android:gravity="center"
-        android:id="@+id/category_name_et"
-        />
+        android:hint="@string/bot_url_text"
+        android:layout_marginHorizontal="24dp"
+        android:layout_marginTop="24dp"
+        app:boxStrokeWidthFocused="2dp"
+        app:endIconMode="clear_text"
+        app:endIconTint="@color/black"
+        app:hintTextColor="@color/black">
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/domain_et"
+            android:text="@string/bot_url"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:inputType="text" />
+    </com.google.android.material.textfield.TextInputLayout>
 
-    <EditText
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/bot_id"
+        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="Final Url(Optional)"
-        android:gravity="center"
-        android:id="@+id/final_url_et"
-        />
+        android:hint="@string/bot_id_text"
+        android:layout_marginHorizontal="24dp"
+        android:layout_marginTop="24dp"
+        app:boxStrokeWidthFocused="2dp"
+        app:endIconMode="clear_text"
+        app:endIconTint="@color/black"
+        app:hintTextColor="@color/black">
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/bot_id_et"
+            android:text="@string/bot_id"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:inputType="number" />
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/access_token"
+        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="@string/access_token_text"
+        android:layout_marginHorizontal="24dp"
+        android:layout_marginTop="24dp"
+        app:boxStrokeWidthFocused="2dp"
+        app:endIconMode="clear_text"
+        app:endIconTint="@color/black"
+        app:hintTextColor="@color/black">
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/access_token_et"
+            android:text="@string/access_token"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:inputType="text" />
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/mob_session_id"
+        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="@string/mobile_session_id_text"
+        android:layout_marginHorizontal="24dp"
+        android:layout_marginTop="24dp"
+        app:boxStrokeWidthFocused="2dp"
+        app:endIconMode="clear_text"
+        app:endIconTint="@color/black"
+        app:hintTextColor="@color/black">
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/mob_session_id_et"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/mobile_session_id"
+            android:inputType="text" />
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/language"
+        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="@string/language"
+        android:layout_marginHorizontal="24dp"
+        android:layout_marginTop="24dp"
+        app:boxStrokeWidthFocused="2dp"
+        app:endIconMode="clear_text"
+        app:endIconTint="@color/black"
+        app:hintTextColor="@color/black">
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/language_et"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/language_value"
+            android:inputType="text" />
+    </com.google.android.material.textfield.TextInputLayout>
 
     <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Verify Access Token"
+        android:text="@string/access_token_button_text"
+        android:layout_marginTop="24dp"
         android:id="@+id/verify_access_token"
         />
 
     <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Open Bot"
+        android:text="@string/open_bot_text"
         android:id="@+id/open_bot_btn"
        />
 
     <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Open Activity 2"
+        android:text="@string/open_activity_text"
         android:visibility="visible"
         android:id="@+id/open_test_activity"
         />
-
-
 
 </LinearLayout>

@@ -1,9 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name">CognoAI</string>
     <string name="screen_heading">Please Verify token first and then open bot.</string>
     <string name="bot_url">https://americana-uae.allincall.in</string>
     <string name="bot_id">2</string>
     <string name="access_token">6239e892-05ad-49b4-abc7-a3b0bb303309</string>
+    <string name="app_name">CognoAI</string>
     <string name="access_token_text">Access Token</string>
     <string name="bot_url_text">Bot URL</string>
     <string name="bot_id_text">Bot ID</string>

@@ -25,7 +25,8 @@ android {
         }
 
         release {
-            minifyEnabled true
+            minifyEnabled false
+            debuggable true
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
     }
@@ -33,6 +34,7 @@ android {
         sourceCompatibility JavaVersion.VERSION_1_8
         targetCompatibility JavaVersion.VERSION_1_8
     }
+
 }
 
 
@@ -65,8 +67,8 @@ dependencies {
 }
 
 def libraryGroupId = 'com.allincall'
-def libraryArtifactId = 'easychatsdkwebview'
-def libraryVersion = '2.6'
+def libraryArtifactId = 'easychatsdkwebview-americana-uat'
+def libraryVersion = '2.9.1'
 
 publishing {
     publications {

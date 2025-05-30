@@ -29,10 +29,7 @@ import android.webkit.ValueCallback;
 import android.webkit.WebChromeClient;
 import android.webkit.WebSettings;
 import android.webkit.WebView;
-import android.widget.Button;
 import android.widget.ImageButton;
-import android.widget.RelativeLayout;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -74,7 +71,6 @@ import static androidx.webkit.WebSettingsCompat.FORCE_DARK_ON;
 
 import org.json.JSONObject;
 
-
 public class ChatDialog extends DialogFragment {
     private WebView webView;
     private SpeechToText speechToText;
@@ -95,8 +91,6 @@ public class ChatDialog extends DialogFragment {
     private final static int FCR=1;
     private String category_name_param = "";
     private static final int MY_PERMISSIONS_REQUEST_CODE = 123;
-
-
 
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
@@ -264,22 +258,22 @@ public class ChatDialog extends DialogFragment {
             @JavascriptInterface           // For API 17+
             public void reload_chatbot() {
                 String finalUrl = GlobalParams.getFinalUrl();
-                String mobile_session_id = GlobalParams.getMobileSessionId();
-                String uuid = UUID.randomUUID().toString();
-                GlobalParams.setRandom_uuid(uuid);
-                if (finalUrl.isEmpty()) {
-                    finalUrl = GlobalParams.getBase_url()+"/chat/index/?id="+GlobalParams.bot_id+"&channel=Android" + category_name_param + "&mobile_session_id=" + mobile_session_id;
+//                String mobile_session_id = GlobalParams.getMobileSessionId();
+//                String uuid = UUID.randomUUID().toString();
+//                GlobalParams.setRandom_uuid(uuid);
+//                if (finalUrl.isEmpty()) {
+                    finalUrl = GlobalParams.getBase_url()+"/chat/index/?id="+GlobalParams.bot_id+"&channel=Android";
                     if (!GlobalParams.isStoreChatPermanently()) {
                         finalUrl += GlobalParams.getRandom_uuid();
                     }
-                } else {
-                    String query_value = mobile_session_id;
-                    if (!GlobalParams.isStoreChatPermanently()) {
-                        query_value += GlobalParams.getRandom_uuid();
-                    }
-                    finalUrl = appendQueryParameterToUri("mobile_session_id", query_value, finalUrl);
-
-                }
+//                } else {
+//                    String query_value = mobile_session_id;
+//                    if (!GlobalParams.isStoreChatPermanently()) {
+//                        query_value += GlobalParams.getRandom_uuid();
+//                    }
+//                    finalUrl = appendQueryParameterToUri("mobile_session_id", query_value, finalUrl);
+//
+//                }
 
                 if (!GlobalParams.getSelected_language().isEmpty()) {
                     String query_value = GlobalParams.getSelected_language();
@@ -315,6 +309,7 @@ public class ChatDialog extends DialogFragment {
                                 getActivity().runOnUiThread(new Runnable() {
                                     @Override
                                     public void run() {
+                                        Log.d("TAG", "run: finalURL1 " + finalUrl1);
                                         webView.loadUrl(finalUrl1);
                                     }
                                 }
@@ -457,8 +452,7 @@ public class ChatDialog extends DialogFragment {
                 contentSelectionIntent.setType("*/*");
                 Intent[] intentArray;
 
-                    intentArray = new Intent[0];
-
+                intentArray = new Intent[0];
 
                 Intent chooserIntent = new Intent(Intent.ACTION_CHOOSER);
                 chooserIntent.putExtra(Intent.EXTRA_INTENT, contentSelectionIntent);
@@ -468,30 +462,30 @@ public class ChatDialog extends DialogFragment {
                 return true;
             }
         });
-        if (!GlobalParams.getCategoryName().isEmpty()) {
-            category_name_param = "&category_name=" + GlobalParams.getCategoryName();
-        }
+//        if (!GlobalParams.getCategoryName().isEmpty()) {
+//            category_name_param = "&category_name=" + GlobalParams.getCategoryName();
+//        }
 
         // code to handle session chats
         String finalUrl = GlobalParams.getFinalUrl();
-        String mobile_session_id = GlobalParams.getMobileSessionId();
-        if (GlobalParams.getRandom_uuid().isEmpty()) {
-            String uuid = UUID.randomUUID().toString();
-            GlobalParams.setRandom_uuid(uuid);
-        }
-        if (finalUrl.isEmpty()) {
-            finalUrl = GlobalParams.getBase_url()+"/chat/index/?id="+GlobalParams.bot_id+"&channel=Android" + category_name_param + "&mobile_session_id=" + mobile_session_id;
-            if (!GlobalParams.isStoreChatPermanently()) {
-                finalUrl += GlobalParams.getRandom_uuid();
-            }
-        } else {
-            String query_value = mobile_session_id;
-            if (!GlobalParams.isStoreChatPermanently()) {
-                query_value += GlobalParams.getRandom_uuid();
-            }
-            finalUrl = appendQueryParameterToUri("mobile_session_id", query_value, finalUrl);
-
-        }
+//        String mobile_session_id = GlobalParams.getMobileSessionId();
+//        if (GlobalParams.getRandom_uuid().isEmpty()) {
+//            String uuid = UUID.randomUUID().toString();
+//            GlobalParams.setRandom_uuid(uuid);
+//        }
+//        if (finalUrl.isEmpty()) {
+            finalUrl = GlobalParams.getBase_url()+"/chat/index/?id="+GlobalParams.bot_id+"&channel=Android";
+//            if (!GlobalParams.isStoreChatPermanently()) {
+//                finalUrl += GlobalParams.getRandom_uuid();
+//            }
+//        } else {
+//            String query_value = mobile_session_id;
+//            if (!GlobalParams.isStoreChatPermanently()) {
+//                query_value += GlobalParams.getRandom_uuid();
+//            }
+//            finalUrl = appendQueryParameterToUri("mobile_session_id", query_value, finalUrl);
+//
+//        }
 
         if (!GlobalParams.getSelected_language().isEmpty()) {
             String query_value = GlobalParams.getSelected_language();
@@ -518,16 +512,13 @@ public class ChatDialog extends DialogFragment {
             e.printStackTrace();
         }
 
+        Log.d("TAG", "run: finalURL " + finalUrl);
         webView.loadUrl(finalUrl);
 
         checkPermissionsForMic();
-        if ( Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP ) {
+        CookieManager cookieManager = CookieManager.getInstance();
 
-            CookieManager cookieManager = CookieManager.getInstance();
-
-            cookieManager.setAcceptThirdPartyCookies( webView, true );
-
-        }
+        cookieManager.setAcceptThirdPartyCookies( webView, true );
 
 
     }
