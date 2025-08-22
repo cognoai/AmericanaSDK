@@ -6,12 +6,12 @@ apply plugin: 'com.jfrog.artifactory'
 apply plugin: 'maven-publish'
 
 android {
-    compileSdkVersion 30
+    compileSdkVersion 33
     buildToolsVersion "30.0.3"
 
     defaultConfig {
         minSdkVersion 21
-        targetSdkVersion 30
+        targetSdkVersion 33
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
         consumerProguardFiles "consumer-rules.pro"
@@ -43,7 +43,7 @@ dependencies {
     implementation 'androidx.appcompat:appcompat:1.3.1'
 
     implementation 'com.google.android.material:material:1.4.0'
-    testImplementation 'junit:junit:4.+'
+    testImplementation 'junit:junit:4.13.2'
     androidTestImplementation 'androidx.test.ext:junit:1.1.3'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.4.0'
 
@@ -67,8 +67,8 @@ dependencies {
 }
 
 def libraryGroupId = 'com.allincall'
-def libraryArtifactId = 'easychatsdkwebview-americana-uat'
-def libraryVersion = '2.9.1'
+def libraryArtifactId = 'easychatsdkwebview-americana-prod'
+def libraryVersion = '1.0'
 
 publishing {
     publications {
