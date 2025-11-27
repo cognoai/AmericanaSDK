@@ -1,6 +1,9 @@
 package com.example.easychatwebviewsdkmodule.sdkclasses;
 
 import android.app.Activity;
+import android.content.Context;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.os.CountDownTimer;
 import android.util.Log;
 import android.view.View;
@@ -29,8 +32,12 @@ public class EasyChat {
     private static AuthenticationViewModal authenticationViewModal;
 
     public static void showBot(FragmentManager fragmentManager, FragmentActivity fragmentActivity) {
-        if( GlobalParams.access_token_verified) {
-            Log.i("TAG", "showBot: " + GlobalParams.isBot_minimized());
+        ConnectivityManager connectivityManager = (ConnectivityManager)fragmentActivity.getSystemService(Context.CONNECTIVITY_SERVICE);
+        if(connectivityManager.getNetworkInfo(ConnectivityManager.TYPE_MOBILE).getState() == NetworkInfo.State.CONNECTED ||
+                connectivityManager.getNetworkInfo(ConnectivityManager.TYPE_WIFI).getState() == NetworkInfo.State.CONNECTED ||
+                connectivityManager.getNetworkInfo(ConnectivityManager.TYPE_BLUETOOTH).getState() == NetworkInfo.State.CONNECTED) {
+            if (GlobalParams.access_token_verified) {
+                Log.i("TAG", "showBot: " + GlobalParams.isBot_minimized());
 
                 ChatDialog cd = (ChatDialog) ChatDialog.newInstance("ChatDialog");
                 GlobalParams.setChatDialog(cd);
@@ -38,8 +45,11 @@ public class EasyChat {
 
                 cd.show(fragmentManager, "chats");
 
-        } else {
-            Toast.makeText(fragmentActivity, "Something went wrong. Please verify access token.", Toast.LENGTH_SHORT).show();
+            } else {
+                Toast.makeText(fragmentActivity, "Something went wrong..", Toast.LENGTH_SHORT).show();
+            }
+        }else{
+            Toast.makeText(fragmentActivity, "Kindly check your internet connection..", Toast.LENGTH_SHORT).show();
         }
     }
 

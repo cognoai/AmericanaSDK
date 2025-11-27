@@ -4,6 +4,7 @@ import android.Manifest;
 import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.app.Dialog;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
@@ -11,6 +12,8 @@ import android.content.res.Configuration;
 import android.graphics.Bitmap;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
@@ -62,6 +65,7 @@ import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Iterator;
+import java.util.Objects;
 import java.util.Timer;
 import java.util.UUID;
 
@@ -257,55 +261,60 @@ public class ChatDialog extends DialogFragment {
 
             @JavascriptInterface           // For API 17+
             public void reload_chatbot() {
-                String finalUrl = GlobalParams.getBase_url()+"/chat/index/?id="+GlobalParams.bot_id+"&channel=Android";
+                ConnectivityManager connectivityManager = (ConnectivityManager) requireActivity().getSystemService(Context.CONNECTIVITY_SERVICE);
+                if(connectivityManager.getNetworkInfo(ConnectivityManager.TYPE_MOBILE).getState() == NetworkInfo.State.CONNECTED ||
+                        connectivityManager.getNetworkInfo(ConnectivityManager.TYPE_WIFI).getState() == NetworkInfo.State.CONNECTED ||
+                        connectivityManager.getNetworkInfo(ConnectivityManager.TYPE_BLUETOOTH).getState() == NetworkInfo.State.CONNECTED) {
+                    String finalUrl = GlobalParams.getBase_url()+"/chat/index/?id="+GlobalParams.bot_id+"&channel=Android";
 
-                if (!GlobalParams.getSelected_language().isEmpty()) {
-                    String query_value = GlobalParams.getSelected_language();
-                    finalUrl = appendQueryParameterToUri("selected_language", query_value, finalUrl);
-                }
-
-                if (!GlobalParams.getLiveChatSessionId().isEmpty()) {
-                    String query_value = GlobalParams.getLiveChatSessionId();
-                    finalUrl = appendQueryParameterToUri("livechat_session_id", query_value, finalUrl);
-                }
-
-                try {
-                    if (!GlobalParams.getCustomUrlParameters().isEmpty()) {
-                        JSONObject jsonObject = new JSONObject(GlobalParams.getCustomUrlParameters());
-                        Iterator<String> keys = jsonObject.keys();
-                        while (keys.hasNext()) {
-                            String key = keys.next();
-                            Object value = jsonObject.get(key);
-                            Log.d("ChatDialog", "onViewCreated: Key: " + key + ", Value: " + value.toString());
-                            finalUrl = appendQueryParameterToUri(key, (String) value, finalUrl);
-                        }
+                    if (!GlobalParams.getSelected_language().isEmpty()) {
+                        String query_value = GlobalParams.getSelected_language();
+                        finalUrl = appendQueryParameterToUri("selected_language", query_value, finalUrl);
                     }
-                } catch (Exception e) {
-                    e.printStackTrace();
-                }
 
-                final Timer t = new java.util.Timer();
-                String finalUrl1 = finalUrl;
-                t.schedule(
-                        new java.util.TimerTask() {
-                            @Override
-                            public void run() {
-                                getActivity().runOnUiThread(new Runnable() {
-                                    @Override
-                                    public void run() {
-                                        Log.d("TAG", "run: finalURL1 " + finalUrl1);
-                                        webView.loadUrl(finalUrl1);
-                                    }
-                                }
-                                );
-                                t.cancel();
+                    if (!GlobalParams.getLiveChatSessionId().isEmpty()) {
+                        String query_value = GlobalParams.getLiveChatSessionId();
+                        finalUrl = appendQueryParameterToUri("livechat_session_id", query_value, finalUrl);
+                    }
+
+                    try {
+                        if (!GlobalParams.getCustomUrlParameters().isEmpty()) {
+                            JSONObject jsonObject = new JSONObject(GlobalParams.getCustomUrlParameters());
+                            Iterator<String> keys = jsonObject.keys();
+                            while (keys.hasNext()) {
+                                String key = keys.next();
+                                Object value = jsonObject.get(key);
+                                Log.d("ChatDialog", "onViewCreated: Key: " + key + ", Value: " + value.toString());
+                                finalUrl = appendQueryParameterToUri(key, (String) value, finalUrl);
                             }
+                        }
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
 
-                        },
-                        300
-                );
+                    final Timer t = new java.util.Timer();
+                    String finalUrl1 = finalUrl;
+                    t.schedule(
+                            new java.util.TimerTask() {
+                                @Override
+                                public void run() {
+                                    getActivity().runOnUiThread(new Runnable() {
+                                        @Override
+                                        public void run() {
+                                            Log.d("TAG", "run: finalURL1 " + finalUrl1);
+                                            webView.loadUrl(finalUrl1);
+                                        }
+                                    }
+                                    );
+                                    t.cancel();
+                                }
 
-
+                            },
+                            300
+                    );
+                }else{
+                    Toast.makeText(requireActivity(), "Kindly check your internet connection..", Toast.LENGTH_SHORT).show();
+                }
             }
 
             @JavascriptInterface           // For API 17+
